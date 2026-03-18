@@ -193,7 +193,7 @@ const Header = () => {
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1], delay: 3.5 }}
-      className="fixed top-0 w-full z-[50] flex justify-between items-center px-6 md:px-12 py-6 mix-blend-difference"
+      className="fixed top-0 w-full z-[50] flex justify-between items-center px-6 md:px-12 py-6 bg-gradient-to-b from-black/80 via-black/40 to-transparent backdrop-blur-[2px]"
     >
       <div className="font-cinzel text-xl md:text-2xl font-bold tracking-[0.2em] text-white overflow-hidden">
          <motion.div initial={{ y: "100%" }} animate={{ y: "0%" }} transition={{ duration: 1, delay: 4, ease: [0.16, 1, 0.3, 1] }}>AATMAN YODHA</motion.div>
@@ -278,13 +278,15 @@ const Hero = () => {
         style={{ y: yImage, scale: scaleImage, opacity }} 
         className="absolute inset-0 w-full h-[120%] -top-[10%] origin-bottom"
       >
-        <div className="absolute inset-0 bg-gradient-to-t from-[#020202] via-[#020202]/40 to-transparent z-[10]" />
+        {/* Extreme Contrast Overlays to Ensure Text Readability */}
+        <div className="absolute inset-0 bg-black/40 z-[10]" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#020202] via-transparent to-[#020202] z-[10]" />
         
         {/* Subtle dynamic noise on the main image */}
         <div className="absolute inset-0 bg-brand-orange/5 mix-blend-screen z-[5] pointer-events-none" />
         
-        {/* Primary Image */}
-        <img src="/assets/hero.jpg" alt="Aatman Yodha Live" className="w-full h-full object-cover object-top opacity-70 filter contrast-125 saturate-50" />
+        {/* Primary User Image */}
+        <img src="/assets/main-dashboard.png" alt="Aatman Yodha Main" className="w-full h-full object-cover object-center opacity-90 filter contrast-125 saturate-100" />
       </motion.div>
 
       {/* Typography Parallax Layer */}
@@ -296,7 +298,7 @@ const Hero = () => {
           initial={{ scale: 0.8, opacity: 0 }}
           animate={{ scale: 1, opacity: 0.15 }}
           transition={{ duration: 4, ease: [0.16, 1, 0.3, 1], delay: 1 }}
-          className="absolute font-cinzel text-[22vw] leading-none tracking-widest text-outline select-none"
+          className="absolute font-cinzel text-[22vw] leading-none tracking-widest text-white select-none drop-shadow-[0_10px_30px_rgba(0,0,0,0.8)]"
         >
           AATMAN
         </motion.h1>
@@ -306,11 +308,11 @@ const Hero = () => {
           style={{ y: yTextFront }}
           initial={{ scale: 0.9, opacity: 0, filter: "blur(20px)" }}
           animate={{ scale: 1, opacity: 1, filter: "blur(0px)" }}
-          transition={{ duration: 3, ease: [0.16, 1, 0.3, 1], delay: 2.5 }} // Delay waits for preloader
-          className="font-cinzel text-[16vw] md:text-[14vw] leading-[0.8] tracking-widest mix-blend-plus-lighter drop-shadow-2xl flex flex-col items-center uppercase relative z-10"
+          transition={{ duration: 3, ease: [0.16, 1, 0.3, 1], delay: 2.5 }} 
+          className="font-cinzel text-[16vw] md:text-[14vw] leading-[0.8] tracking-widest flex flex-col items-center uppercase relative z-10 drop-shadow-[0_20px_50px_rgba(0,0,0,0.9)]"
         >
-          <span className="text-white block ml-4 md:ml-12 drop-shadow-[0_0_30px_rgba(255,255,255,0.4)]">AATMAN</span>
-          <span className="text-[12vw] text-transparent bg-clip-text bg-gradient-to-br from-brand-orange via-[#fff3e0] to-brand-orange drop-shadow-[0_20px_50px_rgba(231,81,20,0.5)] block lg:ml-48 md:ml-32 mt-2">YODHA</span>
+          <span className="text-white block ml-4 md:ml-12 drop-shadow-[0_10px_30px_rgba(0,0,0,1)]">AATMAN</span>
+          <span className="text-[12vw] text-brand-orange drop-shadow-[0_10px_30px_rgba(0,0,0,1)] block lg:ml-48 md:ml-32 mt-2">YODHA</span>
         </motion.h1>
         
         {/* Scroll Indicator */}
