@@ -537,8 +537,13 @@ const ListenWatch = () => {
             </div>
             <h3 className="font-cinzel text-2xl md:text-4xl uppercase mb-2 md:mb-4 tracking-widest">Transcendence</h3>
             <p className="text-brand-orange mb-6 md:mb-10 tracking-[0.4em] uppercase text-[10px] md:text-xs font-bold">The Latest Drop</p>
-            <div className="pointer-events-auto">
-              <iframe src="https://open.spotify.com/embed/track/3n3Ppam7vgaVa1iaRUc9Lp?utm_source=generator&theme=0" width="100%" height="152" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" className="opacity-60 hover:opacity-100 transition-opacity rounded-xl"></iframe>
+            <div className="relative group cursor-none">
+              <div className="absolute inset-0 z-10 flex items-center justify-center bg-black/0 group-hover:bg-black/60 transition-colors duration-500 rounded-xl opacity-0 group-hover:opacity-100 backdrop-blur-[2px]">
+                 <a href="https://open.spotify.com/track/3n3Ppam7vgaVa1iaRUc9Lp" target="_blank" rel="noopener noreferrer" className="font-dmsans text-[10px] md:text-xs uppercase tracking-[0.3em] flex items-center gap-3 text-white bg-black px-6 py-3 rounded-full border border-white/20 hover:border-[#1DB954] hover:text-[#1DB954] transition-all duration-300 scale-90 group-hover:scale-100 cursor-none">
+                    <FaSpotify className="text-xl" /> Listen on Spotify
+                 </a>
+              </div>
+              <iframe src="https://open.spotify.com/embed/track/3n3Ppam7vgaVa1iaRUc9Lp?utm_source=generator&theme=0" width="100%" height="152" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" className="opacity-60 transition-opacity rounded-xl pointer-events-none w-full"></iframe>
             </div>
           </motion.div>
 
@@ -548,9 +553,14 @@ const ListenWatch = () => {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 1.5, ease: "easeOut" }}
-              className="w-full aspect-video bg-black shadow-[0_0_80px_rgba(231,81,20,0.1)] rounded-2xl md:rounded-[2.5rem] overflow-hidden border border-white/5 group pointer-events-auto mb-10 md:mb-16"
+              className="w-full aspect-video bg-black shadow-[0_0_80px_rgba(231,81,20,0.1)] rounded-2xl md:rounded-[2.5rem] overflow-hidden border border-white/5 group mb-10 md:mb-16 relative cursor-none"
             >
-               <iframe className="w-full h-full" src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=0&controls=0&theme=dark" title="Aatman Yodha Music Video" frameBorder="0" allowFullScreen></iframe>
+               <div className="absolute inset-0 z-10 flex items-center justify-center bg-black/0 group-hover:bg-black/40 transition-all duration-700 opacity-0 group-hover:opacity-100 backdrop-blur-sm">
+                  <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" rel="noopener noreferrer" className="font-cinzel text-sm md:text-lg uppercase tracking-[0.2em] flex items-center gap-3 text-white bg-red-600/90 hover:bg-red-600 px-8 py-4 rounded-full shadow-2xl transition-all duration-500 scale-90 group-hover:scale-100 cursor-none">
+                     <FaYoutube className="text-2xl" /> Watch on YouTube
+                  </a>
+               </div>
+               <iframe className="w-full h-full pointer-events-none opacity-80 group-hover:opacity-100 transition-opacity duration-1000" src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=0&controls=0&theme=dark" title="Aatman Yodha Music Video" frameBorder="0" allowFullScreen></iframe>
             </motion.div>
             
             <div className="bg-[#050505]/80 backdrop-blur-xl p-6 md:p-12 rounded-2xl md:rounded-[2.5rem] border border-white/5">
