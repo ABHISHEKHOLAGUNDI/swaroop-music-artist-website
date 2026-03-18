@@ -78,17 +78,51 @@ a, button, input, textarea {
 }
 
 .fire-text {
-  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-  background-clip: text;
-  -webkit-background-clip: text;
+  transition: all 0.3s ease-out;
+  display: inline-block;
+  transform-origin: bottom center;
 }
 .fire-text:hover {
+  color: #fff;
+  text-shadow: 
+    0 -10px 20px #ff9800,
+    0 -20px 40px #ff5722,
+    0 -40px 60px #e64a19,
+    0 -60px 80px #d84315,
+    0 -80px 100px #bf360c;
+  animation: burning 0.4s infinite alternate cubic-bezier(0.45, 0.05, 0.55, 0.95);
+  transform: scale(1.05);
+}
+
+@keyframes burning {
+  0% { transform: scale(1.05) translateY(0px) skewX(2deg); filter: contrast(130%) brightness(120%); }
+  50% { transform: scale(1.02) translateY(-2px) skewX(-2deg); filter: contrast(110%) brightness(150%); }
+  100% { transform: scale(1.04) translateY(-4px) skewX(1deg); filter: contrast(140%) brightness(130%); }
+}
+
+.silver-diamond {
+  background: linear-gradient(
+    110deg,
+    #cfcfcf 0%,
+    #ffffff 20%,
+    #999999 40%,
+    #ffffff 60%,
+    #cfcfcf 80%,
+    #ffffff 100%
+  );
+  background-size: 200% auto;
   color: transparent;
-  background-image: linear-gradient(to top, #ffcc00 0%, #ff3300 40%, #cc0000 80%, #ffffff 100%);
-  background-size: 200% 200%;
-  animation: fire-flow 1.5s linear infinite;
-  filter: drop-shadow(0 0 30px rgba(255, 50, 0, 0.6));
-  transform: scale(1.02);
+  -webkit-background-clip: text;
+  background-clip: text;
+  text-shadow: 0 0 20px rgba(255,255,255,0.2);
+  animation: diamond-shine 4s linear infinite;
+  display: inline-block;
+}
+
+@keyframes diamond-shine {
+  to {
+    background-position: -200% center;
+  }
 }
 
 @keyframes fire-flow {

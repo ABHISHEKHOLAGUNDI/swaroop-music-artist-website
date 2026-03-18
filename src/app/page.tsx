@@ -195,11 +195,11 @@ const Header = () => {
       transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1], delay: 3.5 }}
       className="fixed top-0 w-full z-[50] flex justify-between items-center px-6 md:px-12 py-6 bg-gradient-to-b from-black/80 via-black/40 to-transparent backdrop-blur-[2px]"
     >
-      <div className="font-cinzel text-xl md:text-2xl font-bold tracking-[0.2em] text-white overflow-hidden">
-         <motion.div initial={{ y: "100%" }} animate={{ y: "0%" }} transition={{ duration: 1, delay: 4, ease: [0.16, 1, 0.3, 1] }}>AATMAN YODHA</motion.div>
+      <div className="font-cinzel text-xl md:text-2xl font-bold tracking-[0.2em] text-white">
+         <motion.div initial={{ y: "100%", opacity: 0 }} animate={{ y: "0%", opacity: 1 }} transition={{ duration: 1, delay: 4, ease: [0.16, 1, 0.3, 1] }} className="silver-diamond drop-shadow-[0_0_10px_rgba(255,255,255,0.5)] cursor-none">AATMAN YODHA</motion.div>
       </div>
       <nav className="hidden md:flex gap-12 font-dmsans text-xs uppercase tracking-widest text-white">
-        {["Home", "About", "Shows", "Music", "Shop"].map((link, i) => (
+        {["Home", "About", "Ethos", "Music", "Shop"].map((link, i) => (
           <MagneticButton key={link}>
             <motion.div initial={{ y: -20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.8, delay: 4 + i * 0.1 }}>
                <a href={`#${link.toLowerCase()}`} className="hover:text-brand-orange transition-colors duration-500">{link}</a>
@@ -296,8 +296,8 @@ const Hero = () => {
           style={{ y: yTextFront }}
           initial={{ scale: 0.9, opacity: 0, filter: "blur(20px)", rotateX: -30 }}
           animate={{ scale: 1, opacity: 1, filter: "blur(0px)", rotateX: 0 }}
-          transition={{ duration: 3.5, ease: [0.16, 1, 0.3, 1], delay: 2.5 }} 
-          className="font-cinzel text-[10vw] md:text-[8vw] leading-[0.8] tracking-widest flex flex-col items-start justify-center w-full px-8 md:px-24 uppercase relative z-10 drop-shadow-[0_20px_50px_rgba(0,0,0,0.9)] perspective-[1000px] transform-style-3d origin-bottom pointer-events-auto"
+          transition={{ duration: 2, ease: [0.16, 1, 0.3, 1], delay: 3.5 }}
+          className="font-cinzel text-[10vw] md:text-[8vw] leading-[0.8] text-brand-orange drop-shadow-2xl absolute z-[30] left-[2%] md:left-[5%] lg:left-[2%] pointer-events-auto"
         >
           <span className="text-white block drop-shadow-[0_10px_30px_rgba(0,0,0,1)] fire-text cursor-crosshair">AATMAN</span>
           <span className="text-[8vw] md:text-[6.5vw] text-brand-orange drop-shadow-[0_10px_30px_rgba(0,0,0,1)] block mt-2 fire-text cursor-crosshair">YODHA</span>
@@ -501,7 +501,7 @@ const StoryCause = () => {
   ];
 
   return (
-    <section id="shows" ref={targetRef} className="relative h-[400vh] bg-[#0a0a0a] w-[100vw] left-1/2 -ml-[50vw] right-1/2">
+    <section id="ethos" ref={targetRef} className="relative h-[400vh] bg-[#0a0a0a] w-[100vw] left-1/2 -ml-[50vw] right-1/2">
       <div className="sticky top-0 h-screen flex items-center overflow-hidden w-[100vw]">
          <motion.div style={{ x }} className="flex gap-12 md:gap-32 px-[10vw] w-[350vw] md:w-[350vw] h-full items-center">
             
