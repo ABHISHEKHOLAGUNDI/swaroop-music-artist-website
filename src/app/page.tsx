@@ -297,37 +297,12 @@ const Hero = () => {
           initial={{ scale: 0.9, opacity: 0, filter: "blur(20px)", rotateX: -30 }}
           animate={{ scale: 1, opacity: 1, filter: "blur(0px)", rotateX: 0 }}
           transition={{ duration: 3.5, ease: [0.16, 1, 0.3, 1], delay: 2.5 }} 
-          className="font-cinzel text-[16vw] md:text-[14vw] leading-[0.8] tracking-widest flex flex-col items-center uppercase relative z-10 drop-shadow-[0_20px_50px_rgba(0,0,0,0.9)] perspective-[1000px] transform-style-3d origin-bottom"
+          className="font-cinzel text-[16vw] md:text-[14vw] leading-[0.8] tracking-widest flex flex-col items-start justify-center w-full px-8 md:px-24 uppercase relative z-10 drop-shadow-[0_20px_50px_rgba(0,0,0,0.9)] perspective-[1000px] transform-style-3d origin-bottom"
         >
-          <span className="text-white block ml-4 md:ml-12 drop-shadow-[0_10px_30px_rgba(0,0,0,1)]">AATMAN</span>
-          <span className="text-[12vw] text-brand-orange drop-shadow-[0_10px_30px_rgba(0,0,0,1)] block lg:ml-48 md:ml-32 mt-2">YODHA</span>
+          <span className="text-white block drop-shadow-[0_10px_30px_rgba(0,0,0,1)]">AATMAN</span>
+          <span className="text-[12vw] text-brand-orange drop-shadow-[0_10px_30px_rgba(0,0,0,1)] block mt-2">YODHA</span>
         </motion.h1>
         
-        {/* Scroll Indicator */}
-        <motion.div 
-          initial={{ opacity: 0, height: 0 }}
-          animate={{ opacity: 1, height: "auto" }}
-          transition={{ duration: 1.5, delay: 4 }}
-          className="absolute bottom-12 md:bottom-24 flex flex-col items-center gap-6"
-        >
-           <div className="overflow-hidden">
-             <motion.span 
-               initial={{ y: "100%" }}
-               animate={{ y: "0%" }}
-               transition={{ duration: 1, delay: 4.5 }}
-               className="font-dmsans uppercase tracking-[0.5em] text-[10px] md:text-xs text-brand-orange opacity-80 block"
-             >
-               Scroll to Discover
-             </motion.span>
-           </div>
-           
-           <motion.div 
-             initial={{ scaleY: 0 }}
-             animate={{ scaleY: 1 }}
-             transition={{ duration: 1.5, delay: 5, ease: "easeInOut" }}
-             className="w-[1px] h-20 md:h-32 bg-gradient-to-b from-brand-orange via-brand-orange/50 to-transparent origin-top" 
-           />
-        </motion.div>
       </div>
     </section>
   );
@@ -338,12 +313,12 @@ const Marquee = () => {
   const { scrollY } = useScroll();
   const scrollVelocity = useVelocity(scrollY);
   const smoothVelocity = useSpring(scrollVelocity, { damping: 50, stiffness: 400 });
-  const velocityFactor = useTransform(smoothVelocity, [0, 1000], [0, 5], { clamp: false });
+  const velocityFactor = useTransform(smoothVelocity, [0, 1000], [0, 2], { clamp: false });
 
   const directionFactor = useRef<number>(1);
 
   useAnimationFrame((t, delta) => {
-    let moveBy = directionFactor.current * -1 * (delta / 1000) * 10;
+    let moveBy = directionFactor.current * -1 * (delta / 1000) * 3;
     
     // Add scroll velocity to base movement
     moveBy += directionFactor.current * moveBy * velocityFactor.get();
