@@ -267,11 +267,10 @@ const Hero = () => {
   const yImage = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
   const scaleImage = useTransform(scrollYProgress, [0, 1], [1, 1.2]);
   const yTextFront = useTransform(scrollYProgress, [0, 1], ["0%", "-100%"]);
-  const yTextBack = useTransform(scrollYProgress, [0, 1], ["0%", "-40%"]);
   const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
   return (
-    <section ref={ref} id="home" className="relative h-[100vh] w-full flex items-center justify-center overflow-hidden bg-[#020202] max-w-[100vw]">
+    <section ref={ref} id="home" className="relative h-[100vh] w-full flex items-center justify-center overflow-hidden bg-[#0a0a0a] max-w-[100vw]">
       
       {/* Background Image Parallax Layer */}
       <motion.div 
@@ -291,25 +290,14 @@ const Hero = () => {
 
       {/* Typography Parallax Layer */}
       <div className="relative z-[20] flex flex-col items-center pointer-events-none mt-16 md:mt-24 h-full justify-center w-full">
-        
-        {/* Back Text (Moves Slower) */}
-        <motion.h1 
-          style={{ y: yTextBack }}
-          initial={{ scale: 0.8, opacity: 0 }}
-          animate={{ scale: 1, opacity: 0.15 }}
-          transition={{ duration: 4, ease: [0.16, 1, 0.3, 1], delay: 1 }}
-          className="absolute font-cinzel text-[22vw] leading-none tracking-widest text-white select-none drop-shadow-[0_10px_30px_rgba(0,0,0,0.8)]"
-        >
-          AATMAN
-        </motion.h1>
 
         {/* Front Text (Moves Faster) */}
         <motion.h1 
           style={{ y: yTextFront }}
-          initial={{ scale: 0.9, opacity: 0, filter: "blur(20px)" }}
-          animate={{ scale: 1, opacity: 1, filter: "blur(0px)" }}
-          transition={{ duration: 3, ease: [0.16, 1, 0.3, 1], delay: 2.5 }} 
-          className="font-cinzel text-[16vw] md:text-[14vw] leading-[0.8] tracking-widest flex flex-col items-center uppercase relative z-10 drop-shadow-[0_20px_50px_rgba(0,0,0,0.9)]"
+          initial={{ scale: 0.9, opacity: 0, filter: "blur(20px)", rotateX: -30 }}
+          animate={{ scale: 1, opacity: 1, filter: "blur(0px)", rotateX: 0 }}
+          transition={{ duration: 3.5, ease: [0.16, 1, 0.3, 1], delay: 2.5 }} 
+          className="font-cinzel text-[16vw] md:text-[14vw] leading-[0.8] tracking-widest flex flex-col items-center uppercase relative z-10 drop-shadow-[0_20px_50px_rgba(0,0,0,0.9)] perspective-[1000px] transform-style-3d origin-bottom"
         >
           <span className="text-white block ml-4 md:ml-12 drop-shadow-[0_10px_30px_rgba(0,0,0,1)]">AATMAN</span>
           <span className="text-[12vw] text-brand-orange drop-shadow-[0_10px_30px_rgba(0,0,0,1)] block lg:ml-48 md:ml-32 mt-2">YODHA</span>
@@ -372,7 +360,7 @@ const Marquee = () => {
   });
 
   return (
-    <div className="relative w-full py-6 md:py-10 border-y border-white/5 bg-[#050505] overflow-hidden flex z-[30] max-w-[100vw]">
+    <div className="relative w-full py-6 md:py-10 border-y border-white/5 bg-[#0a0a0a] overflow-hidden flex z-[30] max-w-[100vw]">
       <motion.div 
         style={{ x: useTransform(baseX, v => `${v}%`) }}
         className="flex whitespace-nowrap"
@@ -395,7 +383,7 @@ const About = () => {
   const rotateImage = useTransform(scrollYProgress, [0, 1], [-10, 15]);
 
   return (
-    <section id="about" className="py-24 md:py-48 px-6 md:px-20 max-w-[90rem] mx-auto min-h-screen flex items-center relative z-[20] overflow-hidden bg-brand-dark">
+    <section id="about" className="py-24 md:py-48 px-6 md:px-20 max-w-[90rem] mx-auto min-h-screen flex items-center relative z-[20] overflow-hidden bg-[#0a0a0a]">
       <div className="w-full grid md:grid-cols-12 gap-16 md:gap-24 items-center">
         <div ref={ref} className="md:col-span-5 flex justify-center w-full">
           <motion.div 
@@ -460,7 +448,7 @@ const HorizontalShows = () => {
   const x = useTransform(scrollYProgress, [0, 1], ["0%", "-70%"]);
 
   return (
-    <section id="shows" ref={targetRef} className="relative h-[400vh] bg-[#020202] w-[100vw] left-1/2 -ml-[50vw] right-1/2">
+    <section id="shows" ref={targetRef} className="relative h-[400vh] bg-[#0a0a0a] w-[100vw] left-1/2 -ml-[50vw] right-1/2">
       <div className="sticky top-0 h-screen flex items-center overflow-hidden w-[100vw]">
          <motion.div style={{ x }} className="flex gap-12 md:gap-32 px-[10vw] w-[350vw] md:w-[350vw] h-full items-center">
             
@@ -497,7 +485,7 @@ const HorizontalShows = () => {
 
 const ListenWatch = () => {
   return (
-    <section id="music" className="relative py-24 md:py-48 bg-black w-full overflow-hidden border-t border-white/5 max-w-[100vw]">
+    <section id="music" className="relative py-24 md:py-48 bg-[#0a0a0a] w-full overflow-hidden border-t border-white/5 max-w-[100vw]">
       <div className="absolute top-0 right-0 w-[100vw] md:w-[70vw] opacity-[0.10] pointer-events-none mix-blend-screen blur-md">
           <img src="/assets/vintage_mic.png" alt="Vintage Mic Accent" className="w-full h-full object-cover" />
       </div>
@@ -573,7 +561,7 @@ const Merch = () => {
   };
 
   return (
-    <section id="shop" onMouseMove={handleMouseMove} className="py-24 md:py-48 px-6 bg-[#030303] text-brand-light overflow-hidden relative min-h-screen flex items-center border-t border-white/5 max-w-[100vw]">
+    <section id="shop" onMouseMove={handleMouseMove} className="py-24 md:py-48 px-6 bg-[#0a0a0a] text-brand-light overflow-hidden relative min-h-screen flex items-center border-t border-white/5 max-w-[100vw]">
       
       <div className="max-w-[90rem] mx-auto w-full grid lg:grid-cols-2 gap-16 lg:gap-32 items-center relative z-[10]">
         <div className="perspective-[1200px] flex justify-center order-2 lg:order-1">
@@ -611,7 +599,7 @@ const Merch = () => {
 
 const Footer = () => {
   return (
-    <footer className="w-full h-full flex flex-col justify-between pt-24 md:pt-40 pb-8 md:pb-12 px-6 md:px-16 overflow-hidden font-dmsans bg-[#020202] mix-blend-lighten relative">
+    <footer className="w-full h-full flex flex-col justify-between pt-24 md:pt-40 pb-8 md:pb-12 px-6 md:px-16 overflow-hidden font-dmsans bg-[#0a0a0a] relative">
       {/* Decorative large glowing sphere in background */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[60vw] h-[60vw] bg-brand-orange/5 blur-[150px] rounded-full pointer-events-none" />
 
