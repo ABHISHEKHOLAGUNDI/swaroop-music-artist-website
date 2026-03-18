@@ -285,7 +285,7 @@ const Hero = () => {
         <div className="absolute inset-0 bg-brand-orange/5 mix-blend-screen z-[5] pointer-events-none" />
         
         {/* Primary User Image */}
-        <img src="/assets/main-dashboard.png" alt="Aatman Yodha Main" className="w-full h-full object-cover object-center opacity-90 filter contrast-125 saturate-100" />
+        <img src="/assets/Whisk_0d1bae8d8eeb5efb5784232fae13a5e3eg.png" alt="Aatman Yodha Main" className="w-full h-full object-cover object-top opacity-90 filter contrast-110 saturate-100" />
       </motion.div>
 
       {/* Typography Parallax Layer */}
