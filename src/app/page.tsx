@@ -376,10 +376,12 @@ const About = () => {
   const finalOpacity = useTransform(scrollYProgress, [0.1, 0.3, 0.65, 0.8], [0, 1, 1, 0]);
   const finalScale = useTransform(scrollYProgress, [0.1, 0.3, 0.65, 0.8], [0.5, 1, 1, 1.2]);
   
-  // Generate Fire Particles (30 pieces)
-  const fireParticles = Array.from({ length: 30 });
-  const getFireX = (i: number) => (Math.sin(i * 4.5) * 200) + "%";
-  const getFireY = (i: number) => (Math.cos(i * 3) * -300 - 100) + "%"; // Always moves UP
+  // Generate massive Fire Particles (50 pieces)
+  const fireParticles = Array.from({ length: 50 });
+  const getFireOriginX = (i: number) => (Math.sin(i * 7) * 45 + 50) + "%"; // Spread across 5% to 95% width
+  const getFireOriginY = (i: number) => (Math.cos(i * 5) * 40 + 50) + "%"; // Spread across 10% to 90% height
+  const getFireDestX = (i: number) => (Math.sin(i * 3.1) * 300) + "px"; // Wild horizontal drift
+  const getFireDestY = (i: number) => (-300 - (i * 12)) + "px"; // Massive vertical ascension
 
   return (
     <section id="about" className="py-24 md:py-48 px-6 md:px-20 max-w-[90rem] mx-auto min-h-screen flex items-center relative z-[20] overflow-hidden bg-[#0a0a0a]">
@@ -409,19 +411,21 @@ const About = () => {
                <img src="/assets/main-dashboard.png" className="w-full h-full object-cover rounded-2xl drop-shadow-[0_20px_50px_rgba(0,0,0,0.8)] z-[20] border border-white/10" alt="Aatman Yodha Journey" />
             </motion.div>
             
-            {/* Outgoing Fire Explosion Particles (Only visible during 0.65 -> 0.9) */}
+            {/* Outgoing Fire Explosion Particles (Volumetric Full-Image Spread) */}
             {fireParticles.map((_, i) => (
               <motion.div
                  key={`fire-${i}`}
                  style={{ 
                     opacity: useTransform(scrollYProgress, [0.65, 0.75, 0.9], [0, 1, 0]), 
-                    x: useTransform(scrollYProgress, [0.65, 0.9], ["0%", getFireX(i)]),
-                    y: useTransform(scrollYProgress, [0.65, 0.9], ["0%", getFireY(i)]),
+                    left: getFireOriginX(i),
+                    top: getFireOriginY(i),
+                    x: useTransform(scrollYProgress, [0.65, 0.9], ["0px", getFireDestX(i)]),
+                    y: useTransform(scrollYProgress, [0.65, 0.9], ["0px", getFireDestY(i)]),
                     rotate: useTransform(scrollYProgress, [0.65, 0.9], [0, (i % 2 === 0 ? 1 : -1) * 360]),
-                    scale: useTransform(scrollYProgress, [0.65, 0.75, 0.9], [0, i % 3 === 0 ? 3 : 1.5, 0]),
-                    backgroundColor: useTransform(scrollYProgress, [0.65, 0.75, 0.9], ["#ffff00", "#ff5500", "#330000"])
+                    scale: useTransform(scrollYProgress, [0.65, 0.75, 0.9], [0.5, i % 3 === 0 ? 5 : 2.5, 0]),
+                    backgroundColor: useTransform(scrollYProgress, [0.65, 0.75, 0.9], ["#ffff00", "#ff3300", "#110000"])
                  }}
-                 className="absolute top-[80%] left-1/2 -translate-x-1/2 w-4 h-4 md:w-8 md:h-8 rounded-full blur-[2px] mix-blend-screen drop-shadow-[0_0_20px_rgba(255,100,0,0.8)] z-[30]"
+                 className="absolute w-8 h-8 md:w-16 md:h-16 rounded-full blur-[8px] mix-blend-screen drop-shadow-[0_0_30px_rgba(255,50,0,1)] z-[30] pointer-events-none"
               />
             ))}
 

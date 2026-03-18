@@ -78,18 +78,20 @@ a, button, input, textarea {
 }
 
 .fire-text {
-  transition: all 0.3s ease-out;
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  background-clip: text;
+  -webkit-background-clip: text;
 }
 .fire-text:hover {
-  color: #ffebd6;
-  text-shadow: 
-    0 -5px 15px rgba(255, 100, 0, 0.8), 
-    0 -15px 30px rgba(255, 50, 0, 0.6), 
-    0 -25px 40px rgba(200, 0, 0, 0.4);
-  animation: flicker 0.15s infinite alternate;
+  color: transparent;
+  background-image: linear-gradient(to top, #ffcc00 0%, #ff3300 40%, #cc0000 80%, #ffffff 100%);
+  background-size: 200% 200%;
+  animation: fire-flow 1.5s linear infinite;
+  filter: drop-shadow(0 0 30px rgba(255, 50, 0, 0.6));
+  transform: scale(1.02);
 }
 
-@keyframes flicker {
-  0% { filter: brightness(1); text-shadow: 0 -5px 15px rgba(255, 100, 0, 0.8), 0 -15px 30px rgba(255, 50, 0, 0.6), 0 -25px 40px rgba(200, 0, 0, 0.4); }
-  100% { filter: brightness(1.2); text-shadow: 0 -2px 10px rgba(255, 120, 0, 1), 0 -10px 25px rgba(255, 60, 0, 0.8), 0 -30px 50px rgba(255, 0, 0, 0.5); transform: translateY(-1px); }
+@keyframes fire-flow {
+  0% { background-position: 0% 100%; }
+  100% { background-position: 0% 0%; }
 }
