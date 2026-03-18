@@ -313,12 +313,12 @@ const Marquee = () => {
   const { scrollY } = useScroll();
   const scrollVelocity = useVelocity(scrollY);
   const smoothVelocity = useSpring(scrollVelocity, { damping: 50, stiffness: 400 });
-  const velocityFactor = useTransform(smoothVelocity, [0, 1000], [0, 2], { clamp: false });
+  const velocityFactor = useTransform(smoothVelocity, [0, 1000], [0, 3.5], { clamp: false });
 
   const directionFactor = useRef<number>(1);
 
   useAnimationFrame((t, delta) => {
-    let moveBy = directionFactor.current * -1 * (delta / 1000) * 3;
+    let moveBy = directionFactor.current * -1 * (delta / 1000) * 6.5;
     
     // Add scroll velocity to base movement
     moveBy += directionFactor.current * moveBy * velocityFactor.get();
