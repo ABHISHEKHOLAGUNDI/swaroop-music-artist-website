@@ -487,9 +487,9 @@ const HorizontalShows = () => {
       <div className="sticky top-0 h-screen flex items-center overflow-hidden w-[100vw]">
          <motion.div style={{ x }} className="flex gap-12 md:gap-32 px-[10vw] w-[350vw] md:w-[350vw] h-full items-center">
             
-            <div className="w-[80vw] md:w-[60vw] flex-shrink-0 flex items-center">
-               <SplitText text="Live" className="font-cinzel text-[14vw] md:text-[10vw] uppercase leading-none whitespace-nowrap drop-shadow-2xl block" />
-               <SplitText text="Encounters" delay={0.3} className="font-cinzel text-[14vw] md:text-[10vw] uppercase leading-none whitespace-nowrap text-outline text-brand-orange block" />
+            <div className="w-[80vw] md:w-[60vw] flex-shrink-0 flex items-center group cursor-none pointer-events-auto pr-8">
+               <span className="font-cinzel text-[14vw] md:text-[10vw] uppercase leading-none whitespace-nowrap drop-shadow-[0_10px_20px_rgba(0,0,0,0.8)] block mr-4 md:mr-8 group-hover:drop-shadow-[0_0_30px_rgba(255,255,255,0.4)] transition-all duration-500 cursor-none">Live</span>
+               <span className="font-cinzel text-[14vw] md:text-[10vw] uppercase leading-none whitespace-nowrap encounter-text block cursor-none">Encounters</span>
             </div>
             
             {[1,2,3].map((i) => (
