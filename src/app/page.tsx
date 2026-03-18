@@ -366,18 +366,14 @@ const About = () => {
 
   // Advanced Exit (Scroll Up / Bottom Exit) -> The Fire Burn [0.65 to 0.85]
   const opacityOut = useTransform(scrollYProgress, [0.65, 0.8], [1, 0]);
-  const scaleOut = useTransform(scrollYProgress, [0.65, 0.8], [1, 1.2]);
-  const burnFilter = useTransform(scrollYProgress, [0.6, 0.8], 
-    ["brightness(1) contrast(1) sepia(0) hue-rotate(0deg) saturate(1) blur(0px)", 
-     "brightness(1.5) contrast(3) sepia(1) hue-rotate(-20deg) saturate(10) blur(10px)"]
-  );
+  const burnOpacity = useTransform(scrollYProgress, [0.6, 0.75], [0, 1]);
 
   // Combine transforms map
   const finalOpacity = useTransform(scrollYProgress, [0.1, 0.3, 0.65, 0.8], [0, 1, 1, 0]);
   const finalScale = useTransform(scrollYProgress, [0.1, 0.3, 0.65, 0.8], [0.5, 1, 1, 1.2]);
   
-  // Generate massive Fire Particles (50 pieces)
-  const fireParticles = Array.from({ length: 50 });
+  // Generate massive Fire Particles (25 highly optimized pieces to save GPU memory)
+  const fireParticles = Array.from({ length: 25 });
   const getFireOriginX = (i: number) => (Math.sin(i * 7) * 45 + 50) + "%"; // Spread across 5% to 95% width
   const getFireOriginY = (i: number) => (Math.cos(i * 5) * 40 + 50) + "%"; // Spread across 10% to 90% height
   const getFireDestX = (i: number) => (Math.sin(i * 3.1) * 300) + "px"; // Wild horizontal drift
@@ -398,20 +394,28 @@ const About = () => {
               className="absolute inset-0 bg-brand-orange/20 blur-3xl scale-125 rounded-full will-change-transform transform-gpu" 
             />
 
-            {/* The Masterpiece Asset with 3D Entrance and Burning Exit combined into nested motions safely */}
+            {/* The Masterpiece Asset with 3D Entrance and Burning Exit separated into OPACITY layers safely */}
             <motion.div 
                style={{ 
                  opacity: finalOpacity,
                  scale: finalScale,
-                 rotateX: rotateXIn,
-                 filter: useTransform(scrollYProgress, v => v < 0.4 ? filterIn.get() : burnFilter.get())
+                 rotateX: rotateXIn
                }}
-               className="absolute inset-0 w-full h-full transform-style-3d origin-bottom"
+               className="absolute inset-0 w-full h-full transform-style-3d origin-bottom will-change-transform transform-gpu"
             >
-               <img src="/assets/main-dashboard.png" className="w-full h-full object-cover rounded-2xl drop-shadow-[0_20px_50px_rgba(0,0,0,0.8)] z-[20] border border-white/10" alt="Aatman Yodha Journey" />
+               {/* Base Normal Image */}
+               <img src="/assets/main-dashboard.png" className="absolute inset-0 w-full h-full object-cover rounded-2xl drop-shadow-[0_10px_30px_rgba(0,0,0,0.5)] z-[20] border border-white/10" alt="Aatman Yodha Journey Normal" />
+               
+               {/* Zero-Lag Burn Image Layer (Crossfades automatically on scroll) */}
+               <motion.img 
+                  style={{ opacity: burnOpacity }} 
+                  src="/assets/main-dashboard.png" 
+                  className="absolute inset-0 w-full h-full object-cover rounded-2xl z-[21] mix-blend-color-dodge filter brightness-150 contrast-125 sepia hue-rotate-[-10deg] saturate-200 blur-[4px]" 
+                  alt="Aatman Yodha Journey Burn Layer" 
+               />
             </motion.div>
             
-            {/* Outgoing Fire Explosion Particles (Volumetric Full-Image Spread) */}
+            {/* Outgoing Fire Explosion Particles (Volumetric Full-Image Spread - GPU OPTIMIZED) */}
             {fireParticles.map((_, i) => (
               <motion.div
                  key={`fire-${i}`}
@@ -425,7 +429,7 @@ const About = () => {
                     scale: useTransform(scrollYProgress, [0.65, 0.75, 0.9], [0.5, i % 3 === 0 ? 5 : 2.5, 0]),
                     backgroundColor: useTransform(scrollYProgress, [0.65, 0.75, 0.9], ["#ffff00", "#ff3300", "#110000"])
                  }}
-                 className="absolute w-8 h-8 md:w-16 md:h-16 rounded-full blur-[8px] mix-blend-screen drop-shadow-[0_0_30px_rgba(255,50,0,1)] z-[30] pointer-events-none"
+                 className="absolute w-8 h-8 md:w-16 md:h-16 rounded-full drop-shadow-xl shadow-brand-orange z-[30] pointer-events-none will-change-transform transform-gpu"
               />
             ))}
 
