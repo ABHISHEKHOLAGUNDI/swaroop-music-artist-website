@@ -79,11 +79,7 @@ const Hero = () => {
         transition={{ duration: 1.2, delay: 0.2 }}
         className="relative z-10 w-full max-w-sm md:max-w-xl lg:max-w-2xl h-[50vh] md:h-[65vh] object-cover mt-8 pointer-events-none"
       >
-        <div className="w-full h-full bg-cover bg-center rounded-sm shadow-[0_30px_60px_-15px_rgba(0,0,0,0.8)] border border-white/10" style={{ backgroundImage: "url('/assets/hero.jpg')" }}>
-           <div className="w-full h-full flex flex-col items-center justify-center text-white/50 bg-black/50 font-oswald text-2xl uppercase text-center border-4 border-dashed border-white/20">
-              <span className="text-sm tracking-widest mb-2 font-inter">Drop asset here</span>
-              /public/assets/hero.jpg
-           </div>
+        <div className="w-full h-full bg-cover bg-center md:bg-top rounded-sm shadow-[0_30px_60px_-15px_rgba(0,0,0,0.8)] border border-white/10" style={{ backgroundImage: "url('/assets/main-dashboard.png')" }}>
         </div>
       </motion.div>
 
@@ -94,9 +90,8 @@ const Hero = () => {
         transition={{ type: "spring", stiffness: 100, delay: 1 }}
         className="absolute z-20 bottom-[8vh] md:bottom-[15vh] right-4 md:right-32 polaroid w-48 md:w-72 shadow-2xl"
       >
-        <div className="w-full aspect-square bg-gray-300 mb-4 flex flex-col items-center justify-center text-black/40 font-bold border-2 border-dashed border-black/10 font-oswald uppercase text-xl">
-          <span className="text-xs tracking-widest font-inter mb-1">Polaroid Image</span>
-          /assets/new-song.jpg
+        <div className="w-full aspect-square bg-gray-300 mb-4 flex flex-col items-center justify-center overflow-hidden border border-black/10">
+          <img src="/assets/song-poster.jpeg" alt="New Song" className="w-full h-full object-cover filter contrast-[1.1]" />
         </div>
         <h3 className="font-oswald text-xl md:text-2xl uppercase font-bold text-center mb-2 tracking-wide">New Single Out Now</h3>
         <button className="w-full bg-brand-orange text-white py-2 font-bold uppercase tracking-wider hover:bg-black transition-colors">
