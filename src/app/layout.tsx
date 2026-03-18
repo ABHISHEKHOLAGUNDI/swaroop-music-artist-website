@@ -1,9 +1,9 @@
 import type { Metadata } from 'next';
-import { Inter, Oswald } from 'next/font/google';
+import { DM_Sans, Cinzel } from 'next/font/google';
 import './globals.css';
 
-const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
-const oswald = Oswald({ subsets: ['latin'], variable: '--font-oswald' });
+const dmSans = DM_Sans({ subsets: ['latin'], variable: '--font-dmsans', display: 'swap' });
+const cinzel = Cinzel({ subsets: ['latin'], variable: '--font-cinzel', display: 'swap' });
 
 export const metadata: Metadata = {
   title: 'AATMAN YODHA | Cinematic Music Experience',
@@ -43,7 +43,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${oswald.variable}`}>
+    <html lang="en" className={`${dmSans.variable} ${cinzel.variable}`}>
       <body className="antialiased bg-brand-dark text-brand-light">
         <div className="noise-bg"></div>
         {children}
