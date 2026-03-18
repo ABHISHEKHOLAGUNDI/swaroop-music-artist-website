@@ -6,7 +6,7 @@ const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 const oswald = Oswald({ subsets: ['latin'], variable: '--font-oswald' });
 
 export const metadata: Metadata = {
-  title: 'Best Music Artist in Gadag | Eco-Conscious Pop Culture & Concerts',
+  title: 'SWAROOP | Best Music Artist in Gadag',
   description: 'Experience the best music in Gadag. An eco-conscious music artist blending pop culture, live concerts, and environmental advocacy (air, water, soil, and sustainable living).',
   keywords: [
     'best music artist in gadag',
@@ -19,16 +19,16 @@ export const metadata: Metadata = {
     'live music gadag'
   ],
   openGraph: {
-    title: 'Best Music Artist in Gadag | Eco-Conscious Pop Culture',
+    title: 'SWAROOP | Best Music Artist in Gadag',
     description: 'Experience the best music in Gadag. An eco-conscious music artist blending pop culture, live concerts, and environmental advocacy.',
-    url: 'https://yourwebsite.com',
-    siteName: 'Your Artist Name',
+    url: 'https://swaroopmusic.com',
+    siteName: 'Swaroop',
     images: [
       {
-        url: 'https://yourwebsite.com/og-image.jpg',
+        url: 'https://swaroopmusic.com/og-image.jpg',
         width: 1200,
         height: 630,
-        alt: 'Artist Name in Gadag',
+        alt: 'Swaroop in Gadag',
       },
     ],
     locale: 'en_IN',
@@ -37,13 +37,6 @@ export const metadata: Metadata = {
   robots: {
     index: true,
     follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
-    },
   },
 };
 
@@ -53,8 +46,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${oswald.variable} scroll-smooth`}>
-      <body className="antialiased bg-brand-orange text-brand-white selection:bg-black selection:text-white">
+    <html lang="en" className={`${inter.variable} ${oswald.variable}`}>
+      <body className="antialiased bg-brand-dark text-brand-light">
+        <div className="noise-bg"></div>
         {children}
       </body>
     </html>
