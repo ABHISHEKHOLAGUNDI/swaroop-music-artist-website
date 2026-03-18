@@ -542,14 +542,14 @@ const StoryCause = () => {
 const ListenWatch = () => {
   return (
     <section id="music" className="relative py-24 md:py-48 bg-[#0a0a0a] w-full overflow-hidden border-t border-white/5 max-w-[100vw]">
-      <div className="absolute top-0 right-0 w-[100vw] md:w-[70vw] opacity-[0.10] pointer-events-none mix-blend-screen blur-md">
+      <div className="absolute top-0 right-0 w-[100vw] md:w-[70vw] opacity-[0.10] pointer-events-none blur-md will-change-transform transform-gpu">
           <img src="/assets/vintage_mic.png" alt="Vintage Mic Accent" className="w-full h-full object-cover" />
       </div>
       <div className="max-w-[90rem] mx-auto px-6 md:px-12 relative z-[10]">
         
-        <div className="mb-16 md:mb-32">
-           <SplitText text="Sonic" className="font-cinzel text-5xl md:text-[10vw] uppercase leading-[0.9] text-outline opacity-80 backdrop-blur-md inline-block mr-4 md:mr-10" />
-           <SplitText text="Architecture" delay={0.2} className="font-cinzel text-5xl md:text-[10vw] uppercase leading-[0.9] opacity-80 backdrop-blur-md inline-block" />
+        <div className="mb-16 md:mb-32 group cursor-none w-fit pr-10">
+           <SplitText text="Sonic" className="font-cinzel text-5xl md:text-[10vw] uppercase leading-[0.9] encounter-text block mr-4 md:mr-10 transition-all duration-500 cursor-none" />
+           <SplitText text="Architecture" delay={0.2} className="font-cinzel text-5xl md:text-[10vw] uppercase leading-[0.9] opacity-90 drop-shadow-xl block mt-2 md:mt-0 transition-all duration-500 group-hover:drop-shadow-[0_0_30px_rgba(255,255,255,0.4)] cursor-none" />
         </div>
         
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 xl:gap-24">
@@ -558,7 +558,7 @@ const ListenWatch = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-10%" }}
             transition={{ duration: 1.5, ease: "easeOut" }}
-            className="lg:col-span-5 bg-[#050505]/90 backdrop-blur-3xl p-6 md:p-10 rounded-3xl border border-white/5 hover:border-brand-orange/30 transition-colors group shadow-2xl relative overflow-hidden"
+            className="lg:col-span-5 bg-[#050505] p-6 md:p-10 rounded-3xl border border-white/5 hover:border-brand-orange/30 transition-colors group shadow-[0_20px_50px_rgba(0,0,0,0.8)] relative overflow-hidden will-change-transform transform-gpu"
           >
             <div className="absolute inset-0 bg-gradient-to-tr from-brand-orange/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
             <div className="overflow-hidden rounded-[2rem] mb-8 md:mb-12 border border-white/10 relative shadow-2xl shadow-black">
