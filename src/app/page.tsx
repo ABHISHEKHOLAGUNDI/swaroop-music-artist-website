@@ -409,7 +409,7 @@ const About = () => {
               className="absolute inset-0 bg-brand-orange/20 blur-[100px] mix-blend-screen scale-150 rounded-full" 
             />
             {/* Masterpiece Asset */}
-            <img src="/assets/shattered_vinyl.png" className="absolute inset-0 w-full h-full object-contain filter drop-shadow-[0_20px_80px_rgba(231,81,20,0.2)] z-[10]" alt="Surreal Shattered Vinyl" />
+            <img src="/assets/main-dashboard.png" className="absolute inset-0 w-full h-full object-cover rounded-2xl filter drop-shadow-[0_20px_50px_rgba(0,0,0,0.8)] z-[10] border border-white/10" alt="Aatman Yodha Journey" />
           </motion.div>
         </div>
         
