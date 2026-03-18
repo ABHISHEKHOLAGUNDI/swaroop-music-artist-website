@@ -63,8 +63,7 @@ export default function Shop() {
       return [...prev, { ...product, quantity: 1 }];
     });
     
-    setAddedItem(product.id);
-    setTimeout(() => setAddedItem(null), 1500);
+    setIsCartOpen(true);
   };
 
   const updateQuantity = (id: string, delta: number) => {
@@ -169,10 +168,10 @@ export default function Shop() {
                         <p className="font-dmsans text-sm text-white/40 mb-8 min-h-[40px] leading-relaxed">{product.desc}</p>
                         <button 
                            onClick={() => addToCart(product)}
-                           className="w-full py-4 bg-white/5 hover:bg-brand-orange text-white font-dmsans text-xs uppercase tracking-widest rounded-xl transition-all duration-300 flex items-center justify-center gap-2 group/btn border border-white/10 hover:border-transparent"
+                           className={`w-full py-4 text-white font-dmsans text-xs uppercase tracking-widest rounded-xl transition-all duration-300 flex items-center justify-center gap-2 group/btn border border-white/10 ${cart.some(item => item.id === product.id) ? 'bg-brand-orange hover:bg-brand-orange/80 shadow-[0_0_15px_rgba(231,81,20,0.4)] border-transparent' : 'bg-white/5 hover:bg-white/10 hover:border-brand-orange/50'}`}
                         >
-                           {addedItem === product.id ? (
-                              <><Check className="w-4 h-4" /> ADDED TO CART</>
+                           {cart.some(item => item.id === product.id) ? (
+                              <><ShoppingCart className="w-4 h-4" /> ADDED TO CART</>
                            ) : (
                               <><Plus className="w-4 h-4" /> ADD TO CART</>
                            )}
@@ -193,7 +192,7 @@ export default function Shop() {
                   animate={{ opacity: 1 }} 
                   exit={{ opacity: 0 }} 
                   onClick={() => setIsCartOpen(false)}
-                  className="absolute inset-0 bg-black/80 backdrop-blur-sm cursor-none"
+                  className="absolute inset-0 bg-black/80 backdrop-blur-sm"
                />
                <motion.div 
                   initial={{ x: "100%" }}
