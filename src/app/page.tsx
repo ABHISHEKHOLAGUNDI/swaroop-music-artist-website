@@ -354,25 +354,39 @@ const Marquee = () => {
 const About = () => {
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
-  const yImage = useTransform(scrollYProgress, [0, 1], ["-15%", "35%"]);
-  const rotateImage = useTransform(scrollYProgress, [0, 1], [-10, 15]);
   
-  // Magical appearance/disappearance transforms
-  const opacityImage = useTransform(scrollYProgress, [0.2, 0.4, 0.6, 0.8], [0, 1, 1, 0]);
-  const scaleImage = useTransform(scrollYProgress, [0.2, 0.4, 0.6, 0.8], [0.5, 1, 1, 0.5]);
-  const blurImage = useTransform(scrollYProgress, [0.2, 0.4, 0.6, 0.8], ["blur(10px)", "blur(0px)", "blur(0px)", "blur(10px)"]);
+  // Base Movement
+  const yImage = useTransform(scrollYProgress, [0, 1], ["-15%", "35%"]);
+  
+  // Advanced Entrance (Scroll Down / Top Entrance) [0.1 to 0.3]
+  const rotateXIn = useTransform(scrollYProgress, [0.1, 0.3], [90, 0]);
+  const scaleIn = useTransform(scrollYProgress, [0.1, 0.3], [0.5, 1]);
+  const opacityIn = useTransform(scrollYProgress, [0.1, 0.3], [0, 1]);
+  const filterIn = useTransform(scrollYProgress, [0.1, 0.3], ["brightness(2) blur(20px)", "brightness(1) blur(0px)"]);
 
-  const notes = ["🎵", "🎶", "🎼", "🎸", "🎹", "✨", "💫", "🎵", "🎶", "✨", "🎼"];
-  const getX = (i: number) => [-300, 250, -200, 350, -350, 300, 100, -100, 200, -250, 150][i % 11] + "%";
-  const getY = (i: number) => [250, -300, 350, -200, 150, -250, -350, 300, -100, 100, -150][i % 11] + "%";
-  const getCol = (i: number) => ["#FF3366", "#33CCFF", "#FFCC00", "#FF9933", "#CC33FF", "#33FF99", "#FF3333", "#33FFFF", "#ff55ff", "#ffff55", "#55ffff"][i % 11];
+  // Advanced Exit (Scroll Up / Bottom Exit) -> The Fire Burn [0.65 to 0.85]
+  const opacityOut = useTransform(scrollYProgress, [0.65, 0.8], [1, 0]);
+  const scaleOut = useTransform(scrollYProgress, [0.65, 0.8], [1, 1.2]);
+  const burnFilter = useTransform(scrollYProgress, [0.6, 0.8], 
+    ["brightness(1) contrast(1) sepia(0) hue-rotate(0deg) saturate(1) blur(0px)", 
+     "brightness(1.5) contrast(3) sepia(1) hue-rotate(-20deg) saturate(10) blur(10px)"]
+  );
+
+  // Combine transforms map
+  const finalOpacity = useTransform(scrollYProgress, [0.1, 0.3, 0.65, 0.8], [0, 1, 1, 0]);
+  const finalScale = useTransform(scrollYProgress, [0.1, 0.3, 0.65, 0.8], [0.5, 1, 1, 1.2]);
+  
+  // Generate Fire Particles (30 pieces)
+  const fireParticles = Array.from({ length: 30 });
+  const getFireX = (i: number) => (Math.sin(i * 4.5) * 200) + "%";
+  const getFireY = (i: number) => (Math.cos(i * 3) * -300 - 100) + "%"; // Always moves UP
 
   return (
     <section id="about" className="py-24 md:py-48 px-6 md:px-20 max-w-[90rem] mx-auto min-h-screen flex items-center relative z-[20] overflow-hidden bg-[#0a0a0a]">
       <div className="w-full grid md:grid-cols-12 gap-16 md:gap-24 items-center">
         <div ref={ref} className="md:col-span-5 flex justify-center w-full">
           <motion.div 
-            style={{ y: yImage, rotateZ: rotateImage, opacity: opacityImage, scale: scaleImage, filter: blurImage }}
+            style={{ y: yImage }}
             className="w-full max-w-sm md:max-w-xl aspect-square relative group pointer-events-none perspective-[1000px] mt-12 md:mt-0"
           >
             {/* Pulsing neon aura */}
@@ -381,41 +395,34 @@ const About = () => {
               transition={{ duration: 4, ease: "easeInOut", repeat: Infinity }}
               className="absolute inset-0 bg-brand-orange/20 blur-[100px] mix-blend-screen scale-150 rounded-full" 
             />
-            {/* Masterpiece Asset */}
-            <img src="/assets/main-dashboard.png" className="absolute inset-0 w-full h-full object-cover rounded-2xl filter drop-shadow-[0_20px_50px_rgba(0,0,0,0.8)] z-[20] border border-white/10" alt="Aatman Yodha Journey" />
-            
-            {/* Outgoing Explosion Particles */}
-            {notes.map((note, i) => (
-              <motion.div
-                 key={`out-${i}`}
-                 style={{ 
-                    opacity: useTransform(scrollYProgress, [0.7, 0.85], [0, 1]), 
-                    x: useTransform(scrollYProgress, [0.7, 0.9], ["0%", getX(i)]),
-                    y: useTransform(scrollYProgress, [0.7, 0.9], ["0%", getY(i)]),
-                    rotate: useTransform(scrollYProgress, [0.7, 0.9], [0, i % 2 === 0 ? 360 : -360]),
-                    scale: useTransform(scrollYProgress, [0.7, 0.9], [0.5, 2]),
-                 }}
-                 className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-2xl md:text-6xl drop-shadow-[0_0_20px_rgba(255,255,255,0.8)] z-[30]"
-              >
-                 <span style={{ color: getCol(i) }}>{note}</span>
-              </motion.div>
-            ))}
 
-            {/* Incoming Implosion Particles */}
-            {notes.map((note, i) => (
+            {/* The Masterpiece Asset with 3D Entrance and Burning Exit combined into nested motions safely */}
+            <motion.div 
+               style={{ 
+                 opacity: finalOpacity,
+                 scale: finalScale,
+                 rotateX: rotateXIn,
+                 filter: useTransform(scrollYProgress, v => v < 0.4 ? filterIn.get() : burnFilter.get())
+               }}
+               className="absolute inset-0 w-full h-full transform-style-3d origin-bottom"
+            >
+               <img src="/assets/main-dashboard.png" className="w-full h-full object-cover rounded-2xl drop-shadow-[0_20px_50px_rgba(0,0,0,0.8)] z-[20] border border-white/10" alt="Aatman Yodha Journey" />
+            </motion.div>
+            
+            {/* Outgoing Fire Explosion Particles (Only visible during 0.65 -> 0.9) */}
+            {fireParticles.map((_, i) => (
               <motion.div
-                 key={`in-${i}`}
+                 key={`fire-${i}`}
                  style={{ 
-                    opacity: useTransform(scrollYProgress, [0.15, 0.3], [1, 0]), 
-                    x: useTransform(scrollYProgress, [0.1, 0.3], [getX(i), "0%"]),
-                    y: useTransform(scrollYProgress, [0.1, 0.3], [getY(i), "0%"]),
-                    rotate: useTransform(scrollYProgress, [0.1, 0.3], [0, i % 2 === 0 ? -360 : 360]),
-                    scale: useTransform(scrollYProgress, [0.1, 0.3], [2, 0.5]),
+                    opacity: useTransform(scrollYProgress, [0.65, 0.75, 0.9], [0, 1, 0]), 
+                    x: useTransform(scrollYProgress, [0.65, 0.9], ["0%", getFireX(i)]),
+                    y: useTransform(scrollYProgress, [0.65, 0.9], ["0%", getFireY(i)]),
+                    rotate: useTransform(scrollYProgress, [0.65, 0.9], [0, (i % 2 === 0 ? 1 : -1) * 360]),
+                    scale: useTransform(scrollYProgress, [0.65, 0.75, 0.9], [0, i % 3 === 0 ? 3 : 1.5, 0]),
+                    backgroundColor: useTransform(scrollYProgress, [0.65, 0.75, 0.9], ["#ffff00", "#ff5500", "#330000"])
                  }}
-                 className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-2xl md:text-6xl drop-shadow-[0_0_20px_rgba(255,255,255,0.8)] z-[30]"
-              >
-                 <span style={{ color: getCol(i) }}>{note}</span>
-              </motion.div>
+                 className="absolute top-[80%] left-1/2 -translate-x-1/2 w-4 h-4 md:w-8 md:h-8 rounded-full blur-[2px] mix-blend-screen drop-shadow-[0_0_20px_rgba(255,100,0,0.8)] z-[30]"
+              />
             ))}
 
           </motion.div>
