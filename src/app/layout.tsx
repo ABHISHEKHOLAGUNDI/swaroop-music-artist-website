@@ -6,29 +6,26 @@ const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 const oswald = Oswald({ subsets: ['latin'], variable: '--font-oswald' });
 
 export const metadata: Metadata = {
-  title: 'SWAROOP | Best Music Artist in Gadag',
-  description: 'Experience the best music in Gadag. An eco-conscious music artist blending pop culture, live concerts, and environmental advocacy (air, water, soil, and sustainable living).',
+  title: 'AATMAN YODHA | Cinematic Music Experience',
+  description: 'Experience the sonic architecture of Aatman Yodha. An eco-conscious music artist blending pop culture, live concerts, and environmental advocacy.',
   keywords: [
-    'best music artist in gadag',
-    'best music in gadag',
-    'pop culture concerts gadag',
+    'aatman yodha',
+    'best music artist',
+    'cinematic music tickets',
     'environmental music artist',
-    'eco-friendly business music',
-    'sustainable living diet and music',
-    'air water soil conservation music',
-    'live music gadag'
+    'live music'
   ],
   openGraph: {
-    title: 'SWAROOP | Best Music Artist in Gadag',
-    description: 'Experience the best music in Gadag. An eco-conscious music artist blending pop culture, live concerts, and environmental advocacy.',
-    url: 'https://swaroopmusic.com',
-    siteName: 'Swaroop',
+    title: 'AATMAN YODHA | Cinematic Music Experience',
+    description: 'Experience the cinematic music journey of Aatman Yodha.',
+    url: 'https://aatmanyodha.com',
+    siteName: 'Aatman Yodha',
     images: [
       {
-        url: 'https://swaroopmusic.com/og-image.jpg',
+        url: 'https://aatmanyodha.com/og-image.jpg',
         width: 1200,
         height: 630,
-        alt: 'Swaroop in Gadag',
+        alt: 'Aatman Yodha Live',
       },
     ],
     locale: 'en_IN',
