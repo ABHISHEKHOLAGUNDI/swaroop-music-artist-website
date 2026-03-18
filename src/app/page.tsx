@@ -381,13 +381,23 @@ const About = () => {
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
   const yImage = useTransform(scrollYProgress, [0, 1], ["-15%", "35%"]);
   const rotateImage = useTransform(scrollYProgress, [0, 1], [-10, 15]);
+  
+  // Magical appearance/disappearance transforms
+  const opacityImage = useTransform(scrollYProgress, [0.2, 0.4, 0.6, 0.8], [0, 1, 1, 0]);
+  const scaleImage = useTransform(scrollYProgress, [0.2, 0.4, 0.6, 0.8], [0.5, 1, 1, 0.5]);
+  const blurImage = useTransform(scrollYProgress, [0.2, 0.4, 0.6, 0.8], ["blur(10px)", "blur(0px)", "blur(0px)", "blur(10px)"]);
+
+  const notes = ["🎵", "🎶", "🎼", "🎸", "🎹", "✨", "💫", "🎵", "🎶", "✨", "🎼"];
+  const getX = (i: number) => [-300, 250, -200, 350, -350, 300, 100, -100, 200, -250, 150][i % 11] + "%";
+  const getY = (i: number) => [250, -300, 350, -200, 150, -250, -350, 300, -100, 100, -150][i % 11] + "%";
+  const getCol = (i: number) => ["#FF3366", "#33CCFF", "#FFCC00", "#FF9933", "#CC33FF", "#33FF99", "#FF3333", "#33FFFF", "#ff55ff", "#ffff55", "#55ffff"][i % 11];
 
   return (
     <section id="about" className="py-24 md:py-48 px-6 md:px-20 max-w-[90rem] mx-auto min-h-screen flex items-center relative z-[20] overflow-hidden bg-[#0a0a0a]">
       <div className="w-full grid md:grid-cols-12 gap-16 md:gap-24 items-center">
         <div ref={ref} className="md:col-span-5 flex justify-center w-full">
           <motion.div 
-            style={{ y: yImage, rotateZ: rotateImage }}
+            style={{ y: yImage, rotateZ: rotateImage, opacity: opacityImage, scale: scaleImage, filter: blurImage }}
             className="w-full max-w-sm md:max-w-xl aspect-square relative group pointer-events-none perspective-[1000px] mt-12 md:mt-0"
           >
             {/* Pulsing neon aura */}
@@ -397,7 +407,42 @@ const About = () => {
               className="absolute inset-0 bg-brand-orange/20 blur-[100px] mix-blend-screen scale-150 rounded-full" 
             />
             {/* Masterpiece Asset */}
-            <img src="/assets/main-dashboard.png" className="absolute inset-0 w-full h-full object-cover rounded-2xl filter drop-shadow-[0_20px_50px_rgba(0,0,0,0.8)] z-[10] border border-white/10" alt="Aatman Yodha Journey" />
+            <img src="/assets/main-dashboard.png" className="absolute inset-0 w-full h-full object-cover rounded-2xl filter drop-shadow-[0_20px_50px_rgba(0,0,0,0.8)] z-[20] border border-white/10" alt="Aatman Yodha Journey" />
+            
+            {/* Outgoing Explosion Particles */}
+            {notes.map((note, i) => (
+              <motion.div
+                 key={`out-${i}`}
+                 style={{ 
+                    opacity: useTransform(scrollYProgress, [0.7, 0.85], [0, 1]), 
+                    x: useTransform(scrollYProgress, [0.7, 0.9], ["0%", getX(i)]),
+                    y: useTransform(scrollYProgress, [0.7, 0.9], ["0%", getY(i)]),
+                    rotate: useTransform(scrollYProgress, [0.7, 0.9], [0, i % 2 === 0 ? 360 : -360]),
+                    scale: useTransform(scrollYProgress, [0.7, 0.9], [0.5, 2]),
+                 }}
+                 className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-2xl md:text-6xl drop-shadow-[0_0_20px_rgba(255,255,255,0.8)] z-[30]"
+              >
+                 <span style={{ color: getCol(i) }}>{note}</span>
+              </motion.div>
+            ))}
+
+            {/* Incoming Implosion Particles */}
+            {notes.map((note, i) => (
+              <motion.div
+                 key={`in-${i}`}
+                 style={{ 
+                    opacity: useTransform(scrollYProgress, [0.15, 0.3], [1, 0]), 
+                    x: useTransform(scrollYProgress, [0.1, 0.3], [getX(i), "0%"]),
+                    y: useTransform(scrollYProgress, [0.1, 0.3], [getY(i), "0%"]),
+                    rotate: useTransform(scrollYProgress, [0.1, 0.3], [0, i % 2 === 0 ? -360 : 360]),
+                    scale: useTransform(scrollYProgress, [0.1, 0.3], [2, 0.5]),
+                 }}
+                 className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-2xl md:text-6xl drop-shadow-[0_0_20px_rgba(255,255,255,0.8)] z-[30]"
+              >
+                 <span style={{ color: getCol(i) }}>{note}</span>
+              </motion.div>
+            ))}
+
           </motion.div>
         </div>
         
