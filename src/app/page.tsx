@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
+import { motion, useScroll, useTransform, AnimatePresence, useSpring, useMotionValue } from "framer-motion";
 import { ReactLenis } from 'lenis/react';
 import { FaSpotify, FaApple, FaInstagram, FaYoutube } from "react-icons/fa";
 import { MoveRight, ArrowDownRight } from "lucide-react";
@@ -52,100 +52,111 @@ export default function Home() {
 
 const Preloader = ({ onComplete }: { onComplete: () => void }) => {
   useEffect(() => {
-    setTimeout(onComplete, 2500);
+    setTimeout(onComplete, 3500); // 3.5s cinematic intro
   }, [onComplete]);
 
   return (
-    <motion.div 
-      exit={{ y: "-100%", transition: { duration: 1.2, ease: [0.76, 0, 0.24, 1] } }}
-      className="fixed inset-0 z-[99999] bg-[#020202] flex items-center justify-center overflow-hidden pointer-events-auto"
-    >
+    <div className="fixed inset-0 z-[99999] flex items-center justify-center pointer-events-auto overflow-hidden">
+       {/* Cinematic Blast Doors */}
        <motion.div 
-         initial={{ opacity: 0, scale: 0.9, filter: "blur(10px)" }}
-         animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
-         transition={{ duration: 1.5, ease: "easeOut" }}
-         className="flex flex-col items-center px-6 text-center"
+         exit={{ y: "-100%" }}
+         transition={{ duration: 1.2, ease: [0.76, 0, 0.24, 1] }}
+         className="absolute top-0 left-0 w-full h-[50vh] bg-[#030303]"
+       />
+       <motion.div 
+         exit={{ y: "100%" }}
+         transition={{ duration: 1.2, ease: [0.76, 0, 0.24, 1] }}
+         className="absolute bottom-0 left-0 w-full h-[50vh] bg-[#030303]"
+       />
+
+       {/* Cinematic Text Overlay */}
+       <motion.div 
+         exit={{ opacity: 0, scale: 1.1, filter: "blur(10px)" }}
+         transition={{ duration: 0.8, ease: "easeIn" }}
+         className="relative z-10 flex flex-col items-center px-6 text-center w-full"
        >
-         <h1 className="font-oswald text-5xl md:text-8xl text-white tracking-[0.2em] md:tracking-[0.3em] uppercase mb-6 md:mb-8 drop-shadow-2xl">Aatman Yodha</h1>
-         <div className="w-64 md:w-96 h-[1px] md:h-[2px] bg-white/20 relative overflow-hidden rounded-full">
+         <div className="overflow-hidden py-2">
+           <motion.h1 
+             initial={{ y: "100%", opacity: 0 }}
+             animate={{ y: "0%", opacity: 1 }}
+             transition={{ duration: 1.5, ease: [0.76, 0, 0.24, 1] }}
+             className="font-oswald text-5xl md:text-[6rem] text-white tracking-[0.4em] uppercase mb-6 md:mb-8 drop-shadow-2xl font-light"
+           >
+             AATMAN YODHA
+           </motion.h1>
+         </div>
+         
+         <div className="w-full flex justify-center overflow-hidden">
             <motion.div 
-              initial={{ x: "-100%" }}
-              animate={{ x: "0%" }}
-              transition={{ duration: 2, ease: "easeInOut" }}
-              className="absolute inset-0 bg-gradient-to-r from-brand-orange via-white to-brand-orange"
+               initial={{ width: "0%" }}
+               animate={{ width: "min(400px, 80vw)" }}
+               transition={{ duration: 1.5, ease: "easeInOut", delay: 0.8 }}
+               className="h-[1px] md:h-[2px] bg-gradient-to-r from-transparent via-brand-orange to-transparent"
             />
          </div>
-         <p className="mt-6 md:mt-8 font-inter uppercase tracking-[0.3em] text-white/50 text-xs md:text-sm">Sonic Architecture Initialization</p>
+
+         <div className="overflow-hidden mt-6 md:mt-8">
+            <motion.p 
+               initial={{ opacity: 0, letterSpacing: "0.1em", y: "100%" }}
+               animate={{ opacity: 1, letterSpacing: "0.4em", y: "0%" }}
+               transition={{ duration: 2, ease: "easeOut", delay: 1 }}
+               className="font-inter uppercase text-white/40 text-xs md:text-sm font-light whitespace-nowrap"
+            >
+               Sonic Architecture
+            </motion.p>
+         </div>
        </motion.div>
-    </motion.div>
+    </div>
   );
 };
 
 const CustomCursor = () => {
-  const dotRef = useRef<HTMLDivElement>(null);
-  const ringRef = useRef<HTMLDivElement>(null);
+  const mouseX = useMotionValue(-100);
+  const mouseY = useMotionValue(-100);
   
+  const ringX = useSpring(mouseX, { stiffness: 150, damping: 25, mass: 0.1 });
+  const ringY = useSpring(mouseY, { stiffness: 150, damping: 25, mass: 0.1 });
+
+  const [isHovering, setIsHovering] = useState(false);
+
   useEffect(() => {
-    let mouseX = window.innerWidth / 2;
-    let mouseY = window.innerHeight / 2;
-    let ringX = window.innerWidth / 2;
-    let ringY = window.innerHeight / 2;
+    setIsHovering(false);
 
     const moveCursor = (e: MouseEvent) => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-      if (dotRef.current) {
-        dotRef.current.style.transform = `translate3d(${mouseX - 4}px, ${mouseY - 4}px, 0)`;
-      }
-    };
-
-    const animateRing = () => {
-      ringX += (mouseX - ringX) * 0.12;
-      ringY += (mouseY - ringY) * 0.12;
-      if (ringRef.current) {
-         ringRef.current.style.transform = `translate3d(${ringX - 20}px, ${ringY - 20}px, 0)`;
-      }
-      requestAnimationFrame(animateRing);
-    };
-    
-    requestAnimationFrame(animateRing);
-    
-    const applyHover = () => {
-       ringRef.current?.classList.add("cursor-hover");
-       dotRef.current?.classList.add("dot-hover");
-    };
-    const removeHover = () => {
-       ringRef.current?.classList.remove("cursor-hover");
-       dotRef.current?.classList.remove("dot-hover");
+      mouseX.set(e.clientX);
+      mouseY.set(e.clientY);
     };
 
     window.addEventListener("mousemove", moveCursor);
     
-    document.querySelectorAll("a, button, input, textarea").forEach((el) => {
+    const applyHover = () => setIsHovering(true);
+    const removeHover = () => setIsHovering(false);
+
+    const elements = document.querySelectorAll("a, button, input, textarea");
+    elements.forEach((el) => {
       el.addEventListener("mouseenter", applyHover);
       el.addEventListener("mouseleave", removeHover);
     });
 
     return () => {
       window.removeEventListener("mousemove", moveCursor);
+      elements.forEach((el) => {
+        el.removeEventListener("mouseenter", applyHover);
+        el.removeEventListener("mouseleave", removeHover);
+      });
     };
-  }, []);
+  }, [mouseX, mouseY]);
 
   return (
     <div className="hidden lg:block">
-      <div 
-        ref={dotRef} 
-        className="fixed top-0 left-0 w-2 h-2 bg-brand-orange rounded-full pointer-events-none z-[10000] mix-blend-difference"
+      <motion.div 
+        className={`fixed top-0 left-0 bg-brand-orange rounded-full pointer-events-none z-[10000] mix-blend-difference transition-opacity duration-300 ease-out ${isHovering ? 'w-0 h-0 opacity-0' : 'w-2 h-2 -ml-1 -mt-1 opacity-100'}`}
+        style={{ x: mouseX, y: mouseY }}
       />
-      <div 
-        ref={ringRef} 
-        className="fixed top-0 left-0 w-10 h-10 border border-brand-orange/50 rounded-full pointer-events-none z-[9999] mix-blend-difference transition-all duration-300 ease-out will-change-transform"
-      >
-          <style dangerouslySetInnerHTML={{__html: `
-              .cursor-hover { width: 80px !important; height: 80px !important; transform: translate3d(-40px, -40px, 0) !important; background-color: #fff !important; border-color: transparent !important; mix-blend-mode: difference !important; }
-              .dot-hover { opacity: 0 !important; }
-          `}} />
-      </div>
+      <motion.div 
+        className={`fixed top-0 left-0 border border-brand-orange/50 rounded-full pointer-events-none z-[9999] mix-blend-difference transition-all duration-300 ease-out ${isHovering ? 'w-20 h-20 -ml-10 -mt-10 bg-white border-transparent' : 'w-10 h-10 -ml-5 -mt-5'}`}
+        style={{ x: ringX, y: ringY }}
+      />
     </div>
   );
 };
