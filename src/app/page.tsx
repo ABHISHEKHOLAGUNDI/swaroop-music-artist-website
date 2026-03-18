@@ -653,9 +653,9 @@ const Merch = () => {
             Ultra-premium heavyweight cotton with meticulous minimal branding. Eco-consciously sourced and manufactured with the earth in mind. A true piece of sonic architecture.
           </p>
           <MagneticButton>
-            <button className="bg-transparent border border-white/30 text-white rounded-full px-12 py-4 md:px-16 md:py-6 font-cinzel uppercase tracking-[0.3em] text-xs md:text-sm hover:bg-brand-orange hover:border-brand-orange transition-all duration-500 shadow-2xl w-full md:w-auto cursor-none">
+            <a href="/shop" className="inline-block text-center bg-transparent border border-white/30 text-white rounded-full px-12 py-4 md:px-16 md:py-6 font-cinzel uppercase tracking-[0.3em] text-xs md:text-sm hover:bg-brand-orange hover:border-brand-orange transition-all duration-500 shadow-2xl w-full md:w-auto cursor-none">
               Secure Yours
-            </button>
+            </a>
           </MagneticButton>
         </div>
       </div>
