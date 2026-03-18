@@ -83,7 +83,7 @@ const SplitText = ({ text, className, delay = 0, el: Wrapper = "h2" }: { text: s
 
 const Preloader = ({ onComplete }: { onComplete: () => void }) => {
   useEffect(() => {
-    setTimeout(onComplete, 3500);
+    setTimeout(onComplete, 5500);
   }, [onComplete]);
 
   return (
@@ -313,12 +313,12 @@ const Marquee = () => {
   const { scrollY } = useScroll();
   const scrollVelocity = useVelocity(scrollY);
   const smoothVelocity = useSpring(scrollVelocity, { damping: 50, stiffness: 400 });
-  const velocityFactor = useTransform(smoothVelocity, [0, 1000], [0, 3.5], { clamp: false });
+  const velocityFactor = useTransform(smoothVelocity, [0, 1000], [0, 2], { clamp: false });
 
   const directionFactor = useRef<number>(1);
 
   useAnimationFrame((t, delta) => {
-    let moveBy = directionFactor.current * -1 * (delta / 1000) * 6.5;
+    let moveBy = directionFactor.current * -1 * (delta / 1000) * 3;
     
     // Add scroll velocity to base movement
     moveBy += directionFactor.current * moveBy * velocityFactor.get();
@@ -389,11 +389,11 @@ const About = () => {
             style={{ y: yImage }}
             className="w-full max-w-sm md:max-w-xl aspect-square relative group pointer-events-none perspective-[1000px] mt-12 md:mt-0"
           >
-            {/* Pulsing neon aura */}
+            {/* Pulsing neon aura - OPTIMIZED FOR GPU */}
             <motion.div 
-              animate={{ opacity: [0.3, 0.6, 0.3], scale: [1, 1.05, 1] }} 
+              animate={{ opacity: [0.1, 0.3, 0.1], scale: [1, 1.05, 1] }} 
               transition={{ duration: 4, ease: "easeInOut", repeat: Infinity }}
-              className="absolute inset-0 bg-brand-orange/20 blur-[100px] mix-blend-screen scale-150 rounded-full" 
+              className="absolute inset-0 bg-brand-orange/20 blur-3xl scale-125 rounded-full will-change-transform transform-gpu" 
             />
 
             {/* The Masterpiece Asset with 3D Entrance and Burning Exit combined into nested motions safely */}
@@ -627,8 +627,8 @@ const Merch = () => {
 const Footer = () => {
   return (
     <footer className="w-full h-full flex flex-col justify-between pt-24 md:pt-40 pb-8 md:pb-12 px-6 md:px-16 overflow-hidden font-dmsans bg-[#0a0a0a] relative">
-      {/* Decorative large glowing sphere in background */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[60vw] h-[60vw] bg-brand-orange/5 blur-[150px] rounded-full pointer-events-none" />
+      {/* Decorative large glowing sphere in background - OPTIMIZED FOR GPU */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[60vw] h-[60vw] bg-brand-orange/5 blur-3xl rounded-full pointer-events-none will-change-transform transform-gpu" />
 
       <div className="max-w-[100rem] mx-auto w-full grid grid-cols-1 md:grid-cols-12 gap-16 md:gap-12 z-[10] relative">
         <div className="col-span-1 md:col-span-6">
