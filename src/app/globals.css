@@ -70,3 +70,20 @@ a, button, input, textarea {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+.fire-text {
+  transition: all 0.3s ease-out;
+}
+.fire-text:hover {
+  color: #ffebd6;
+  text-shadow: 
+    0 -5px 15px rgba(255, 100, 0, 0.8), 
+    0 -15px 30px rgba(255, 50, 0, 0.6), 
+    0 -25px 40px rgba(200, 0, 0, 0.4);
+  animation: flicker 0.15s infinite alternate;
+}
+
+@keyframes flicker {
+  0% { filter: brightness(1); text-shadow: 0 -5px 15px rgba(255, 100, 0, 0.8), 0 -15px 30px rgba(255, 50, 0, 0.6), 0 -25px 40px rgba(200, 0, 0, 0.4); }
+  100% { filter: brightness(1.2); text-shadow: 0 -2px 10px rgba(255, 120, 0, 1), 0 -10px 25px rgba(255, 60, 0, 0.8), 0 -30px 50px rgba(255, 0, 0, 0.5); transform: translateY(-1px); }
+}
