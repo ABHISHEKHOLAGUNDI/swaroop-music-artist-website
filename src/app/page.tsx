@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { motion, useScroll, useTransform, AnimatePresence, useSpring, useMotionValue } from "framer-motion";
+import { motion, useScroll, useTransform, AnimatePresence, useSpring, useMotionValue, useVelocity, useAnimationFrame } from "framer-motion";
 import { ReactLenis } from 'lenis/react';
 import { FaSpotify, FaApple, FaInstagram, FaYoutube } from "react-icons/fa";
 import { MoveRight, ArrowDownRight } from "lucide-react";
@@ -192,21 +192,37 @@ const Header = () => {
     <motion.header 
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1], delay: 1 }}
+      transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1], delay: 3.5 }}
       className="fixed top-0 w-full z-[50] flex justify-between items-center px-6 md:px-12 py-6 mix-blend-difference"
     >
-      <div className="font-cinzel text-xl md:text-2xl font-bold tracking-[0.2em] text-white">AATMAN YODHA</div>
+      <div className="font-cinzel text-xl md:text-2xl font-bold tracking-[0.2em] text-white overflow-hidden">
+         <motion.div initial={{ y: "100%" }} animate={{ y: "0%" }} transition={{ duration: 1, delay: 4, ease: [0.16, 1, 0.3, 1] }}>AATMAN YODHA</motion.div>
+      </div>
       <nav className="hidden md:flex gap-12 font-dmsans text-xs uppercase tracking-widest text-white">
-        {["Home", "About", "Shows", "Music", "Shop"].map((link) => (
+        {["Home", "About", "Shows", "Music", "Shop"].map((link, i) => (
           <MagneticButton key={link}>
-            <a href={`#${link.toLowerCase()}`} className="hover:text-brand-orange transition-colors">{link}</a>
+            <motion.div initial={{ y: -20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.8, delay: 4 + i * 0.1 }}>
+               <a href={`#${link.toLowerCase()}`} className="hover:text-brand-orange transition-colors duration-500">{link}</a>
+            </motion.div>
           </MagneticButton>
         ))}
       </nav>
       <div className="hidden md:flex gap-6 text-lg text-white">
-        <MagneticButton><a href="#" className="hover:text-brand-orange transition-colors"><FaSpotify /></a></MagneticButton>
-        <MagneticButton><a href="#" className="hover:text-brand-orange transition-colors"><FaInstagram /></a></MagneticButton>
-        <MagneticButton><a href="#" className="hover:text-brand-orange transition-colors"><FaYoutube /></a></MagneticButton>
+        <MagneticButton>
+          <motion.div initial={{ scale: 0, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ duration: 0.5, delay: 4.5 }}>
+            <a href="#" className="hover:text-brand-orange transition-colors"><FaSpotify /></a>
+          </motion.div>
+        </MagneticButton>
+        <MagneticButton>
+           <motion.div initial={{ scale: 0, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ duration: 0.5, delay: 4.6 }}>
+            <a href="#" className="hover:text-brand-orange transition-colors"><FaInstagram /></a>
+           </motion.div>
+        </MagneticButton>
+        <MagneticButton>
+            <motion.div initial={{ scale: 0, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ duration: 0.5, delay: 4.7 }}>
+               <a href="#" className="hover:text-brand-orange transition-colors"><FaYoutube /></a>
+            </motion.div>
+        </MagneticButton>
       </div>
     </motion.header>
   );
@@ -248,60 +264,120 @@ const Hero = () => {
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
   
-  const yImage = useTransform(scrollYProgress, [0, 1], ["0%", "40%"]);
-  const scaleImage = useTransform(scrollYProgress, [0, 1], [1, 1.15]);
-  const yText = useTransform(scrollYProgress, [0, 1], ["0%", "-80%"]);
+  const yImage = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
+  const scaleImage = useTransform(scrollYProgress, [0, 1], [1, 1.2]);
+  const yTextFront = useTransform(scrollYProgress, [0, 1], ["0%", "-100%"]);
+  const yTextBack = useTransform(scrollYProgress, [0, 1], ["0%", "-40%"]);
   const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
   return (
-    <section ref={ref} id="home" className="relative h-[100vh] w-full flex items-center justify-center overflow-hidden bg-black max-w-[100vw]">
+    <section ref={ref} id="home" className="relative h-[100vh] w-full flex items-center justify-center overflow-hidden bg-[#020202] max-w-[100vw]">
+      
+      {/* Background Image Parallax Layer */}
       <motion.div 
         style={{ y: yImage, scale: scaleImage, opacity }} 
         className="absolute inset-0 w-full h-[120%] -top-[10%] origin-bottom"
       >
-        <div className="absolute inset-0 bg-gradient-to-t from-brand-dark via-brand-dark/20 to-[#030303]/60 z-[10] mix-blend-multiply" />
-        <img src="/assets/cinematic_concert.png" alt="Aatman Yodha Live" className="w-full h-full object-cover opacity-80" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#020202] via-[#020202]/40 to-transparent z-[10]" />
+        
+        {/* Subtle dynamic noise on the main image */}
+        <div className="absolute inset-0 bg-brand-orange/5 mix-blend-screen z-[5] pointer-events-none" />
+        
+        {/* Primary Image */}
+        <img src="/assets/hero.jpg" alt="Aatman Yodha Live" className="w-full h-full object-cover object-top opacity-70 filter contrast-125 saturate-50" />
       </motion.div>
 
-      <motion.div 
-        style={{ y: yText }}
-        className="relative z-[20] flex flex-col items-center pointer-events-none mt-16 md:mt-20"
-      >
+      {/* Typography Parallax Layer */}
+      <div className="relative z-[20] flex flex-col items-center pointer-events-none mt-16 md:mt-24 h-full justify-center w-full">
+        
+        {/* Back Text (Moves Slower) */}
         <motion.h1 
-          initial={{ scale: 0.8, opacity: 0, filter: "blur(20px)" }}
-          animate={{ scale: 1, opacity: 1, filter: "blur(0px)" }}
-          transition={{ duration: 3, ease: [0.16, 1, 0.3, 1], delay: 1 }}
-          className="font-cinzel text-[16vw] md:text-[14vw] leading-[0.9] tracking-widest mix-blend-overlay drop-shadow-2xl flex flex-col items-center uppercase"
+          style={{ y: yTextBack }}
+          initial={{ scale: 0.8, opacity: 0 }}
+          animate={{ scale: 1, opacity: 0.15 }}
+          transition={{ duration: 4, ease: [0.16, 1, 0.3, 1], delay: 1 }}
+          className="absolute font-cinzel text-[22vw] leading-none tracking-widest text-outline select-none"
         >
-          <span className="text-white text-outline block ml-8">AATMAN</span>
-          <span className="text-[12vw] text-transparent bg-clip-text bg-gradient-to-br from-brand-orange via-white to-brand-orange drop-shadow-lg block md:ml-32">YODHA</span>
+          AATMAN
+        </motion.h1>
+
+        {/* Front Text (Moves Faster) */}
+        <motion.h1 
+          style={{ y: yTextFront }}
+          initial={{ scale: 0.9, opacity: 0, filter: "blur(20px)" }}
+          animate={{ scale: 1, opacity: 1, filter: "blur(0px)" }}
+          transition={{ duration: 3, ease: [0.16, 1, 0.3, 1], delay: 2.5 }} // Delay waits for preloader
+          className="font-cinzel text-[16vw] md:text-[14vw] leading-[0.8] tracking-widest mix-blend-plus-lighter drop-shadow-2xl flex flex-col items-center uppercase relative z-10"
+        >
+          <span className="text-white block ml-4 md:ml-12 drop-shadow-[0_0_30px_rgba(255,255,255,0.4)]">AATMAN</span>
+          <span className="text-[12vw] text-transparent bg-clip-text bg-gradient-to-br from-brand-orange via-[#fff3e0] to-brand-orange drop-shadow-[0_20px_50px_rgba(231,81,20,0.5)] block lg:ml-48 md:ml-32 mt-2">YODHA</span>
         </motion.h1>
         
+        {/* Scroll Indicator */}
         <motion.div 
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.5, delay: 2 }}
-          className="absolute -bottom-24 md:-bottom-48 flex flex-col items-center gap-4"
+          initial={{ opacity: 0, height: 0 }}
+          animate={{ opacity: 1, height: "auto" }}
+          transition={{ duration: 1.5, delay: 4 }}
+          className="absolute bottom-12 md:bottom-24 flex flex-col items-center gap-6"
         >
-           <span className="font-dmsans uppercase tracking-[0.4em] text-[10px] md:text-xs text-brand-orange drop-shadow-lg animate-pulse">Scroll to Discover</span>
-           <div className="w-[1px] h-24 md:h-32 bg-gradient-to-b from-brand-orange to-transparent" />
+           <div className="overflow-hidden">
+             <motion.span 
+               initial={{ y: "100%" }}
+               animate={{ y: "0%" }}
+               transition={{ duration: 1, delay: 4.5 }}
+               className="font-dmsans uppercase tracking-[0.5em] text-[10px] md:text-xs text-brand-orange opacity-80 block"
+             >
+               Scroll to Discover
+             </motion.span>
+           </div>
+           
+           <motion.div 
+             initial={{ scaleY: 0 }}
+             animate={{ scaleY: 1 }}
+             transition={{ duration: 1.5, delay: 5, ease: "easeInOut" }}
+             className="w-[1px] h-20 md:h-32 bg-gradient-to-b from-brand-orange via-brand-orange/50 to-transparent origin-top" 
+           />
         </motion.div>
-      </motion.div>
+      </div>
     </section>
   );
 };
 
 const Marquee = () => {
+  const baseX = useMotionValue(0);
+  const { scrollY } = useScroll();
+  const scrollVelocity = useVelocity(scrollY);
+  const smoothVelocity = useSpring(scrollVelocity, { damping: 50, stiffness: 400 });
+  const velocityFactor = useTransform(smoothVelocity, [0, 1000], [0, 5], { clamp: false });
+
+  const directionFactor = useRef<number>(1);
+
+  useAnimationFrame((t, delta) => {
+    let moveBy = directionFactor.current * -1 * (delta / 1000) * 10;
+    
+    // Add scroll velocity to base movement
+    moveBy += directionFactor.current * moveBy * velocityFactor.get();
+    
+    // Reverse direction based on scrolling up/down
+    if (velocityFactor.get() < 0) { directionFactor.current = -1; } 
+    else if (velocityFactor.get() > 0) { directionFactor.current = 1; }
+
+    baseX.set(baseX.get() + moveBy);
+    
+    // Reset seamless loop (rough calculation based on 8 elements width)
+    if (baseX.get() <= -50) { baseX.set(0); }
+    else if (baseX.get() > 0) { baseX.set(-50); }
+  });
+
   return (
-    <div className="relative w-full py-8 md:py-12 border-y border-white/5 bg-[#050505] overflow-hidden flex z-[30] max-w-[100vw]">
+    <div className="relative w-full py-6 md:py-10 border-y border-white/5 bg-[#050505] overflow-hidden flex z-[30] max-w-[100vw]">
       <motion.div 
-        animate={{ x: ["0%", "-50%"] }}
-        transition={{ ease: "linear", duration: 25, repeat: Infinity }}
+        style={{ x: useTransform(baseX, v => `${v}%`) }}
         className="flex whitespace-nowrap"
       >
-        {[...Array(8)].map((_, i) => (
-          <div key={i} className="flex items-center">
-            <h2 className="text-outline font-cinzel text-3xl md:text-6xl uppercase mx-6 md:mx-12 tracking-widest">TRANSCEND THE SOUND</h2>
+        {[...Array(10)].map((_, i) => (
+          <div key={i} className="flex items-center shrink-0 group">
+            <h2 className="text-outline font-cinzel text-3xl md:text-6xl uppercase mx-6 md:mx-12 tracking-widest group-hover:text-brand-orange transition-colors duration-700">TRANSCEND THE SOUND</h2>
             <div className="w-2 h-2 md:w-3 md:h-3 rounded-full bg-brand-orange mx-4 md:mx-6 shadow-[0_0_20px_rgba(231,81,20,0.8)]" />
           </div>
         ))}
@@ -313,47 +389,60 @@ const Marquee = () => {
 const About = () => {
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
-  const yImage = useTransform(scrollYProgress, [0, 1], ["-10%", "30%"]);
+  const yImage = useTransform(scrollYProgress, [0, 1], ["-15%", "35%"]);
+  const rotateImage = useTransform(scrollYProgress, [0, 1], [-10, 15]);
 
   return (
-    <section id="about" className="py-24 md:py-48 px-6 md:px-20 max-w-[90rem] mx-auto min-h-screen flex items-center relative z-[20] overflow-hidden">
+    <section id="about" className="py-24 md:py-48 px-6 md:px-20 max-w-[90rem] mx-auto min-h-screen flex items-center relative z-[20] overflow-hidden bg-brand-dark">
       <div className="w-full grid md:grid-cols-12 gap-16 md:gap-24 items-center">
         <div ref={ref} className="md:col-span-5 flex justify-center w-full">
           <motion.div 
-            style={{ y: yImage }}
-            className="w-full max-w-sm md:max-w-md aspect-square relative group pointer-events-none perspective-[1000px] mt-12 md:mt-0"
+            style={{ y: yImage, rotateZ: rotateImage }}
+            className="w-full max-w-sm md:max-w-xl aspect-square relative group pointer-events-none perspective-[1000px] mt-12 md:mt-0"
           >
-            <div className="absolute inset-0 bg-brand-orange/10 blur-3xl opacity-50 mix-blend-screen scale-110" />
-            <img src="/assets/shattered_vinyl.png" className="absolute inset-0 w-full h-full object-contain filter drop-shadow-[0_20px_50px_rgba(0,0,0,0.8)] z-[10] transform rotateY-12" alt="Surreal Shattered Vinyl" />
+            {/* Pulsing neon aura */}
+            <motion.div 
+              animate={{ opacity: [0.3, 0.6, 0.3], scale: [1, 1.05, 1] }} 
+              transition={{ duration: 4, ease: "easeInOut", repeat: Infinity }}
+              className="absolute inset-0 bg-brand-orange/20 blur-[100px] mix-blend-screen scale-150 rounded-full" 
+            />
+            {/* Masterpiece Asset */}
+            <img src="/assets/shattered_vinyl.png" className="absolute inset-0 w-full h-full object-contain filter drop-shadow-[0_20px_80px_rgba(231,81,20,0.2)] z-[10]" alt="Surreal Shattered Vinyl" />
           </motion.div>
         </div>
         
         <div className="md:col-span-7 relative z-[20]">
-          <div className="mb-8 overflow-hidden inline-[block]">
-             <SplitText text="The Journey" delay={0.2} className="font-cinzel text-4xl md:text-8xl uppercase block leading-none" />
-             <SplitText text="of Aatman Yodha" delay={0.4} className="font-cinzel text-2xl md:text-6xl uppercase block leading-none text-brand-orange italic drop-shadow-[0_0_30px_rgba(231,81,20,0.2)] mt-2" />
+          <div className="mb-10 lg:mb-16 overflow-hidden inline-[block]">
+             <SplitText text="THE JOURNEY" delay={0.1} className="font-cinzel text-5xl md:text-[6rem] uppercase block leading-[0.9]" />
+             <SplitText text="OF AATMAN YODHA" delay={0.4} className="font-cinzel text-2xl md:text-[3rem] uppercase block leading-[1.1] text-transparent bg-clip-text bg-gradient-to-r from-brand-orange to-[#ff9e75] drop-shadow-[0_0_40px_rgba(231,81,20,0.3)] mt-4 tracking-wider" />
           </div>
           
-          <motion.p 
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true, margin: "-20%" }}
-            transition={{ delay: 0.6, duration: 1.5 }}
-            className="font-dmsans text-lg md:text-2xl leading-[1.8] text-white/60 max-w-3xl font-light"
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-10%" }}
+            transition={{ delay: 0.8, duration: 1.5, ease: "easeOut" }}
+            className="flex flex-col gap-6"
           >
-            Aatman Yodha crafts sonic experiences for the feelings we all have but rarely say out loud. Blending infectious modern melodies with deep eco-conscious themes—air, water, and soil—Aatman Yodha is redefining live concerts and sustainable artistry for a new generation.
-          </motion.p>
+            <p className="font-dmsans text-lg md:text-2xl leading-[1.8] text-white/80 max-w-3xl font-light">
+              Aatman Yodha crafts sonic experiences for the feelings we all have but rarely say out loud. Blending infectious modern melodies with deep eco-conscious themes—<span className="text-white font-normal">air, water, and soil</span>.
+            </p>
+            <p className="font-dmsans text-lg md:text-xl leading-[1.8] text-white/40 max-w-2xl font-light">
+               We are redefining live concerts and sustainable artistry for a new generation. Every show is a testament to the earth, minimizing carbon footprint while maximizing human connection.
+            </p>
+          </motion.div>
           
           <MagneticButton>
              <motion.button 
-               initial={{ opacity: 0, y: 20 }}
-               whileInView={{ opacity: 1, y: 0 }}
+               initial={{ opacity: 0, scale: 0.9 }}
+               whileInView={{ opacity: 1, scale: 1 }}
                viewport={{ once: true }}
-               transition={{ delay: 0.8 }}
-               className="mt-12 md:mt-16 group flex items-center gap-4 md:gap-6 px-8 md:px-12 py-4 md:py-6 border border-white/20 hover:border-brand-orange hover:bg-brand-orange/10 backdrop-blur-sm transition-all duration-500 rounded-full font-cinzel uppercase tracking-[0.2em] shadow-2xl text-xs md:text-sm hover:text-brand-orange cursor-none"
+               transition={{ delay: 1, type: "spring", stiffness: 100 }}
+               className="mt-12 md:mt-20 group flex items-center gap-6 md:gap-8 px-10 py-5 border border-white/10 hover:border-brand-orange/50 hover:bg-brand-orange/5 backdrop-blur-md transition-all duration-700 rounded-full font-cinzel uppercase tracking-[0.3em] shadow-[0_0_30px_rgba(0,0,0,0.5)] text-xs md:text-sm hover:text-brand-orange cursor-none relative overflow-hidden"
              >
-               <span>Experience The Path</span>
-               <MoveRight className="group-hover:translate-x-3 transition-transform duration-300" />
+               <span className="relative z-10 font-bold">Experience The Path</span>
+               <MoveRight className="relative z-10 group-hover:translate-x-4 transition-transform duration-500 ease-out" />
+               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:animate-shimmer z-0" />
              </motion.button>
           </MagneticButton>
         </div>
@@ -520,46 +609,58 @@ const Merch = () => {
 
 const Footer = () => {
   return (
-    <footer className="w-full h-full flex flex-col justify-between pt-24 md:pt-32 pb-8 md:pb-12 px-6 md:px-12 overflow-hidden font-dmsans bg-[#020202] mix-blend-lighten">
-      <div className="max-w-[90rem] mx-auto w-full grid grid-cols-1 md:grid-cols-4 gap-12 md:gap-8 z-[10] relative">
-        <div className="col-span-1 md:col-span-2">
-           <h4 className="font-cinzel text-2xl md:text-3xl uppercase tracking-[0.3em] text-brand-orange mb-4 md:mb-8">Stay Tuned</h4>
-           <p className="text-sm md:text-md text-white/40 max-w-md font-light leading-[1.8]">Join the inner circle to get early access to tour dates, exclusive merch drops, and new single announcements.</p>
-           <div className="flex w-full max-w-md border-b border-white/10 focus-within:border-brand-orange transition-colors mt-6 md:mt-10 pb-4 group">
-              <input type="email" placeholder="ENTER EMAIL ADDRESS" className="bg-transparent outline-none flex-1 font-dmsans uppercase tracking-[0.2em] text-[10px] md:text-xs text-white focus:placeholder-white/20" style={{ cursor: "none" }} />
-              <button className="uppercase font-bold tracking-[0.3em] text-xs text-brand-orange group-hover:text-white transition-colors px-4 cursor-none">Submit</button>
+    <footer className="w-full h-full flex flex-col justify-between pt-24 md:pt-40 pb-8 md:pb-12 px-6 md:px-16 overflow-hidden font-dmsans bg-[#020202] mix-blend-lighten relative">
+      {/* Decorative large glowing sphere in background */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[60vw] h-[60vw] bg-brand-orange/5 blur-[150px] rounded-full pointer-events-none" />
+
+      <div className="max-w-[100rem] mx-auto w-full grid grid-cols-1 md:grid-cols-12 gap-16 md:gap-12 z-[10] relative">
+        <div className="col-span-1 md:col-span-6">
+           <SplitText text="STAY TUNED" className="font-cinzel text-3xl md:text-5xl uppercase tracking-[0.3em] text-brand-orange mb-6 md:mb-10 block" />
+           <p className="text-sm md:text-lg text-white/50 max-w-lg font-light leading-[2]">Join the inner circle to get early access to tour dates, exclusive merch drops, and new single announcements.</p>
+           
+           <div className="flex w-full max-w-lg border-b border-white/20 hover:border-brand-orange transition-colors duration-500 mt-10 md:mt-16 pb-4 md:pb-6 group relative">
+              <input type="email" placeholder="ENTER EMAIL ADDRESS" className="bg-transparent outline-none flex-1 font-dmsans uppercase tracking-[0.3em] text-[10px] md:text-xs text-white placeholder-white/20 transition-all duration-300" style={{ cursor: "none" }} />
+              <button className="uppercase font-bold tracking-[0.4em] text-xs md:text-sm text-brand-orange group-hover:text-white transition-colors px-4 cursor-none">Submit</button>
            </div>
         </div>
         
-        <div className="flex flex-col gap-4 md:gap-6 lg:items-end mt-8 md:mt-0">
-          <h4 className="font-cinzel text-sm md:text-md uppercase tracking-[0.3em] text-white/30">Inquiries</h4>
+        <div className="col-span-1 md:col-span-3 flex flex-col gap-6 md:gap-10 lg:items-end mt-8 md:mt-0">
+          <h4 className="font-cinzel text-xs md:text-sm uppercase tracking-[0.5em] text-white/20">Inquiries</h4>
           <MagneticButton>
-            <a href="mailto:mgmt@aatmanyodha.com" className="text-xs md:text-sm text-white hover:text-brand-orange transition-colors cursor-none break-all tracking-widest uppercase font-light">mgmt@aatmanyodha.com</a>
+            <a href="mailto:mgmt@aatmanyodha.com" className="text-xs md:text-sm text-white/80 hover:text-brand-orange transition-colors cursor-none break-all tracking-[0.2em] uppercase font-light">mgmt@aatmanyodha.com</a>
           </MagneticButton>
           <MagneticButton>
-            <a href="mailto:press@aatmanyodha.com" className="text-xs md:text-sm text-white hover:text-brand-orange transition-colors cursor-none break-all tracking-widest uppercase font-light">press@aatmanyodha.com</a>
+            <a href="mailto:press@aatmanyodha.com" className="text-xs md:text-sm text-white/80 hover:text-brand-orange transition-colors cursor-none break-all tracking-[0.2em] uppercase font-light">press@aatmanyodha.com</a>
           </MagneticButton>
         </div>
         
-        <div className="flex flex-col gap-4 md:gap-6 lg:items-end mt-4 md:mt-0">
-          <h4 className="font-cinzel text-sm md:text-md uppercase tracking-[0.3em] text-white/30">Socials</h4>
-          <div className="flex flex-col items-start lg:items-end gap-2 md:gap-3 text-xs md:text-sm text-white">
-            <MagneticButton><a href="#" className="hover:text-brand-orange transition-colors uppercase tracking-[0.2em] font-light cursor-none">Spotify</a></MagneticButton>
-            <MagneticButton><a href="#" className="hover:text-brand-orange transition-colors uppercase tracking-[0.2em] font-light cursor-none">Apple Music</a></MagneticButton>
-            <MagneticButton><a href="#" className="hover:text-brand-orange transition-colors uppercase tracking-[0.2em] font-light cursor-none">Instagram</a></MagneticButton>
-            <MagneticButton><a href="#" className="hover:text-brand-orange transition-colors uppercase tracking-[0.2em] font-light cursor-none">YouTube</a></MagneticButton>
+        <div className="col-span-1 md:col-span-3 flex flex-col gap-6 md:gap-10 lg:items-end mt-4 md:mt-0">
+          <h4 className="font-cinzel text-xs md:text-sm uppercase tracking-[0.5em] text-white/20">Socials</h4>
+          <div className="flex flex-col items-start lg:items-end gap-4 md:gap-6 text-xs md:text-sm text-white/80">
+            <MagneticButton><a href="#" className="hover:text-brand-orange transition-colors uppercase tracking-[0.3em] font-light cursor-none">Spotify</a></MagneticButton>
+            <MagneticButton><a href="#" className="hover:text-brand-orange transition-colors uppercase tracking-[0.3em] font-light cursor-none">Apple Music</a></MagneticButton>
+            <MagneticButton><a href="#" className="hover:text-brand-orange transition-colors uppercase tracking-[0.3em] font-light cursor-none">Instagram</a></MagneticButton>
+            <MagneticButton><a href="#" className="hover:text-brand-orange transition-colors uppercase tracking-[0.3em] font-light cursor-none">YouTube</a></MagneticButton>
           </div>
         </div>
       </div>
 
-      <div className="w-full flex justify-center mt-auto text-center relative z-0 opacity-80 mix-blend-plus-lighter pt-20">
-        <h1 className="font-cinzel text-[20vw] md:text-[18vw] leading-none whitespace-nowrap pointer-events-none tracking-tighter text-outline select-none">
+      {/* Massive Background Text Drop */}
+      <div className="w-full flex justify-center mt-auto text-center relative z-0 mix-blend-overlay pt-32 pb-12 overflow-hidden">
+         <motion.h1 
+           initial={{ y: "100%", opacity: 0 }}
+           whileInView={{ y: "0%", opacity: 0.8 }}
+           viewport={{ once: false, margin: "20%" }}
+           transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
+           className="font-cinzel text-[20vw] md:text-[23vw] leading-[0.7] whitespace-nowrap pointer-events-none tracking-tighter text-outline select-none opacity-50"
+         >
            AATMAN YODHA
-        </h1>
+         </motion.h1>
       </div>
       
-      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 text-white/20 text-[8px] md:text-[10px] tracking-[0.4em] uppercase font-dmsans text-center w-full px-4">
-         © 2026 Aatman Yodha. All Rights Reserved. <br className="md:hidden" /> Engineering by Ultra God Architecture.
+      {/* Absolute strict credits */}
+      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 text-white/30 text-[8px] md:text-[10px] tracking-[0.4em] uppercase font-dmsans text-center w-full px-4 font-bold mix-blend-difference">
+         © 2026 Aatman Yodha. All Rights Reserved. <br className="md:hidden" /> Developed & Engineered By <span className="text-brand-orange">ABHISHEK H & TEAM</span>.
       </div>
     </footer>
   );
