@@ -297,7 +297,7 @@ const Hero = () => {
           initial={{ scale: 0.9, opacity: 0, filter: "blur(20px)", rotateX: -30 }}
           animate={{ scale: 1, opacity: 1, filter: "blur(0px)", rotateX: 0 }}
           transition={{ duration: 3.5, ease: [0.16, 1, 0.3, 1], delay: 2.5 }} 
-          className="font-cinzel text-[10vw] md:text-[8vw] leading-[0.8] tracking-widest flex flex-col items-start justify-center w-full px-8 md:px-24 uppercase relative z-10 drop-shadow-[0_20px_50px_rgba(0,0,0,0.9)] perspective-[1000px] transform-style-3d origin-bottom"
+          className="font-cinzel text-[10vw] md:text-[8vw] leading-[0.8] tracking-widest flex flex-col items-start justify-center w-full px-8 md:px-24 uppercase relative z-10 drop-shadow-[0_20px_50px_rgba(0,0,0,0.9)] perspective-[1000px] transform-style-3d origin-bottom pointer-events-auto"
         >
           <span className="text-white block drop-shadow-[0_10px_30px_rgba(0,0,0,1)] fire-text cursor-crosshair">AATMAN</span>
           <span className="text-[8vw] md:text-[6.5vw] text-brand-orange drop-shadow-[0_10px_30px_rgba(0,0,0,1)] block mt-2 fire-text cursor-crosshair">YODHA</span>
