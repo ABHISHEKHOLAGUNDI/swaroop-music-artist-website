@@ -485,9 +485,9 @@ const StoryCause = () => {
   const storyCards = [
     {
       subtitle: "The Genesis",
-      title: "Shattered Canvas",
-      desc: "Every great masterpiece begins with destruction. 'Parts of Yourself' was born from the raw chaos of dismantling past identities to build an indestructible sonic foundation.",
-      link: "/genesis"
+      title: "Badalagu Manave",
+      desc: "Change Begins Within Us. A powerful movement led by youth, combining music, social impact, and active community participation to fight for the future of our ecosystem.",
+      link: "/badalagu-manave"
     },
     {
       subtitle: "The Cause",
