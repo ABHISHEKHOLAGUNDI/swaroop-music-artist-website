@@ -16,11 +16,10 @@ body {
   color: var(--color-brand-light);
   font-family: var(--font-dmsans);
   overflow-x: hidden;
-  cursor: none; 
 }
 
 a, button, input, textarea {
-  cursor: none; 
+  cursor: pointer;
 }
 
 ::selection {

@@ -196,7 +196,7 @@ const Header = () => {
       className="fixed top-0 w-full z-[50] flex justify-between items-center px-6 md:px-12 py-6 bg-gradient-to-b from-black/80 via-black/40 to-transparent backdrop-blur-[2px]"
     >
       <div className="font-cinzel text-xl md:text-2xl font-bold tracking-[0.2em] text-white">
-         <motion.div initial={{ y: "100%", opacity: 0 }} animate={{ y: "0%", opacity: 1 }} transition={{ duration: 1, delay: 4, ease: [0.16, 1, 0.3, 1] }} className="silver-diamond drop-shadow-[0_0_10px_rgba(255,255,255,0.5)] cursor-none">AATMAN YODHA</motion.div>
+         <motion.div initial={{ y: "100%", opacity: 0 }} animate={{ y: "0%", opacity: 1 }} transition={{ duration: 1, delay: 4, ease: [0.16, 1, 0.3, 1] }} className="silver-diamond drop-shadow-[0_0_10px_rgba(255,255,255,0.5)]">AATMAN YODHA</motion.div>
       </div>
       <nav className="hidden md:flex gap-12 font-dmsans text-xs uppercase tracking-widest text-white">
         {["Home", "About", "Ethos", "Music", "Shop"].map((link, i) => (
@@ -463,7 +463,7 @@ const About = () => {
                whileInView={{ opacity: 1, scale: 1 }}
                viewport={{ once: true }}
                transition={{ delay: 1, type: "spring", stiffness: 100 }}
-               className="mt-12 md:mt-20 group flex items-center gap-6 md:gap-8 px-10 py-5 border border-white/10 hover:border-brand-orange/50 hover:bg-brand-orange/5 backdrop-blur-md transition-all duration-700 rounded-full font-cinzel uppercase tracking-[0.3em] shadow-[0_0_30px_rgba(0,0,0,0.5)] text-xs md:text-sm hover:text-brand-orange cursor-none relative overflow-hidden"
+               className="mt-12 md:mt-20 group flex items-center gap-6 md:gap-8 px-10 py-5 border border-white/10 hover:border-brand-orange/50 hover:bg-brand-orange/5 backdrop-blur-md transition-all duration-700 rounded-full font-cinzel uppercase tracking-[0.3em] shadow-[0_0_30px_rgba(0,0,0,0.5)] text-xs md:text-sm hover:text-brand-orange relative overflow-hidden"
              >
                <span className="relative z-10 font-bold">Experience The Path</span>
                <MoveRight className="relative z-10 group-hover:translate-x-4 transition-transform duration-500 ease-out" />
@@ -506,9 +506,9 @@ const StoryCause = () => {
       <div className="sticky top-0 h-screen flex items-center overflow-hidden w-[100vw]">
          <motion.div style={{ x }} className="flex gap-12 md:gap-32 px-[10vw] w-[350vw] md:w-[350vw] h-full items-center">
             
-            <div className="w-[80vw] md:w-[60vw] flex-shrink-0 flex items-center group cursor-none pointer-events-auto pr-8">
-               <span className="font-cinzel text-[14vw] md:text-[10vw] uppercase leading-none whitespace-nowrap drop-shadow-[0_10px_20px_rgba(0,0,0,0.8)] block mr-4 md:mr-8 group-hover:drop-shadow-[0_0_30px_rgba(255,255,255,0.4)] transition-all duration-500 cursor-none">The</span>
-               <span className="font-cinzel text-[14vw] md:text-[10vw] uppercase leading-none whitespace-nowrap encounter-text block cursor-none">Ethos</span>
+            <div className="w-[80vw] md:w-[60vw] flex-shrink-0 flex items-center group pointer-events-auto pr-8">
+               <span className="font-cinzel text-[14vw] md:text-[10vw] uppercase leading-none whitespace-nowrap drop-shadow-[0_10px_20px_rgba(0,0,0,0.8)] block mr-4 md:mr-8 group-hover:drop-shadow-[0_0_30px_rgba(255,255,255,0.4)] transition-all duration-500">The</span>
+               <span className="font-cinzel text-[14vw] md:text-[10vw] uppercase leading-none whitespace-nowrap encounter-text block">Ethos</span>
             </div>
                        {storyCards.map((card, i) => {
                           const CardWrapper = card.link ? "a" : "div";
@@ -528,7 +528,7 @@ const StoryCause = () => {
                                     <p className="font-dmsans text-white/60 text-sm md:text-lg leading-[1.8] opacity-0 group-hover:opacity-100 transition-opacity duration-700 delay-100">{card.desc}</p>
                                   </div>
                                   <MagneticButton>
-                                     <button className="hidden lg:flex flex-shrink-0 w-16 h-16 rounded-full border border-white/20 text-white items-center justify-center group-hover:bg-brand-orange group-hover:border-brand-orange group-hover:text-black transition-all duration-500 cursor-none drop-shadow-[0_0_15px_rgba(255,100,0,0)] group-hover:drop-shadow-[0_0_20px_rgba(255,100,0,0.8)] opacity-0 group-hover:opacity-100 pointer-events-none">
+                                     <button className="hidden lg:flex flex-shrink-0 w-16 h-16 rounded-full border border-white/20 text-white items-center justify-center group-hover:bg-brand-orange group-hover:border-brand-orange group-hover:text-black transition-all duration-500 drop-shadow-[0_0_15px_rgba(255,100,0,0)] group-hover:drop-shadow-[0_0_20px_rgba(255,100,0,0.8)] opacity-0 group-hover:opacity-100 pointer-events-none">
                                         <MoveRight className="w-6 h-6" />
                                      </button>
                                   </MagneticButton>
@@ -550,9 +550,9 @@ const ListenWatch = () => {
       </div>
       <div className="max-w-[90rem] mx-auto px-6 md:px-12 relative z-[10]">
         
-        <div className="mb-16 md:mb-32 group cursor-none w-fit pr-10">
-           <SplitText text="Sonic" className="font-cinzel text-5xl md:text-[10vw] uppercase leading-[0.9] encounter-text block mr-4 md:mr-10 transition-all duration-500 cursor-none" />
-           <SplitText text="Architecture" delay={0.2} className="font-cinzel text-5xl md:text-[10vw] uppercase leading-[0.9] opacity-90 drop-shadow-xl block mt-2 md:mt-0 transition-all duration-500 group-hover:drop-shadow-[0_0_30px_rgba(255,255,255,0.4)] cursor-none" />
+        <div className="mb-16 md:mb-32 group w-fit pr-10">
+           <SplitText text="Sonic" className="font-cinzel text-5xl md:text-[10vw] uppercase leading-[0.9] encounter-text block mr-4 md:mr-10 transition-all duration-500" />
+           <SplitText text="Architecture" delay={0.2} className="font-cinzel text-5xl md:text-[10vw] uppercase leading-[0.9] opacity-90 drop-shadow-xl block mt-2 md:mt-0 transition-all duration-500 group-hover:drop-shadow-[0_0_30px_rgba(255,255,255,0.4)]" />
         </div>
         
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 xl:gap-24">
@@ -569,9 +569,9 @@ const ListenWatch = () => {
             </div>
             <h3 className="font-cinzel text-2xl md:text-4xl uppercase mb-2 md:mb-4 tracking-widest">Transcendence</h3>
             <p className="text-brand-orange mb-6 md:mb-10 tracking-[0.4em] uppercase text-[10px] md:text-xs font-bold">The Latest Drop</p>
-            <div className="relative group cursor-none">
+            <div className="relative group">
               <div className="absolute inset-0 z-10 flex items-center justify-center bg-black/0 group-hover:bg-black/60 transition-colors duration-500 rounded-xl opacity-0 group-hover:opacity-100 backdrop-blur-[2px]">
-                 <a href="https://open.spotify.com/track/3n3Ppam7vgaVa1iaRUc9Lp" target="_blank" rel="noopener noreferrer" className="font-dmsans text-[10px] md:text-xs uppercase tracking-[0.3em] flex items-center gap-3 text-white bg-black px-6 py-3 rounded-full border border-white/20 hover:border-[#1DB954] hover:text-[#1DB954] transition-all duration-300 scale-90 group-hover:scale-100 cursor-none">
+                 <a href="https://open.spotify.com/track/3n3Ppam7vgaVa1iaRUc9Lp" target="_blank" rel="noopener noreferrer" className="font-dmsans text-[10px] md:text-xs uppercase tracking-[0.3em] flex items-center gap-3 text-white bg-black px-6 py-3 rounded-full border border-white/20 hover:border-[#1DB954] hover:text-[#1DB954] transition-all duration-300 scale-90 group-hover:scale-100">
                     <FaSpotify className="text-xl" /> Listen on Spotify
                  </a>
               </div>
@@ -585,10 +585,10 @@ const ListenWatch = () => {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 1.5, ease: "easeOut" }}
-              className="w-full aspect-video bg-black shadow-[0_0_80px_rgba(231,81,20,0.1)] rounded-2xl md:rounded-[2.5rem] overflow-hidden border border-white/5 group mb-10 md:mb-16 relative cursor-none"
+              className="w-full aspect-video bg-black shadow-[0_0_80px_rgba(231,81,20,0.1)] rounded-2xl md:rounded-[2.5rem] overflow-hidden border border-white/5 group mb-10 md:mb-16 relative"
             >
                <div className="absolute inset-0 z-10 flex items-center justify-center bg-black/0 group-hover:bg-black/40 transition-all duration-700 opacity-0 group-hover:opacity-100 backdrop-blur-sm">
-                  <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" rel="noopener noreferrer" className="font-cinzel text-sm md:text-lg uppercase tracking-[0.2em] flex items-center gap-3 text-white bg-red-600/90 hover:bg-red-600 px-8 py-4 rounded-full shadow-2xl transition-all duration-500 scale-90 group-hover:scale-100 cursor-none">
+                  <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" rel="noopener noreferrer" className="font-cinzel text-sm md:text-lg uppercase tracking-[0.2em] flex items-center gap-3 text-white bg-red-600/90 hover:bg-red-600 px-8 py-4 rounded-full shadow-2xl transition-all duration-500 scale-90 group-hover:scale-100">
                      <FaYoutube className="text-2xl" /> Watch on YouTube
                   </a>
                </div>
@@ -656,7 +656,7 @@ const Merch = () => {
             Ultra-premium heavyweight cotton with meticulous minimal branding. Eco-consciously sourced and manufactured with the earth in mind. A true piece of sonic architecture.
           </p>
           <MagneticButton>
-            <a href="/shop" className="inline-block text-center bg-transparent border border-white/30 text-white rounded-full px-12 py-4 md:px-16 md:py-6 font-cinzel uppercase tracking-[0.3em] text-xs md:text-sm hover:bg-brand-orange hover:border-brand-orange transition-all duration-500 shadow-2xl w-full md:w-auto cursor-none">
+            <a href="/shop" className="inline-block text-center bg-transparent border border-white/30 text-white rounded-full px-12 py-4 md:px-16 md:py-6 font-cinzel uppercase tracking-[0.3em] text-xs md:text-sm hover:bg-brand-orange hover:border-brand-orange transition-all duration-500 shadow-2xl w-full md:w-auto">
               Secure Yours
             </a>
           </MagneticButton>
@@ -679,27 +679,27 @@ const Footer = () => {
            
            <div className="flex w-full max-w-lg border-b border-white/20 hover:border-brand-orange transition-colors duration-500 mt-10 md:mt-16 pb-4 md:pb-6 group relative">
               <input type="email" placeholder="ENTER EMAIL ADDRESS" className="bg-transparent outline-none flex-1 font-dmsans uppercase tracking-[0.3em] text-[10px] md:text-xs text-white placeholder-white/20 transition-all duration-300" style={{ cursor: "none" }} />
-              <button className="uppercase font-bold tracking-[0.4em] text-xs md:text-sm text-brand-orange group-hover:text-white transition-colors px-4 cursor-none">Submit</button>
+              <button className="uppercase font-bold tracking-[0.4em] text-xs md:text-sm text-brand-orange group-hover:text-white transition-colors px-4">Submit</button>
            </div>
         </div>
         
         <div className="col-span-1 md:col-span-3 flex flex-col gap-6 md:gap-10 lg:items-end mt-8 md:mt-0">
           <h4 className="font-cinzel text-xs md:text-sm uppercase tracking-[0.5em] text-white/20">Inquiries</h4>
           <MagneticButton>
-            <a href="mailto:mgmt@aatmanyodha.com" className="text-xs md:text-sm text-white/80 hover:text-brand-orange transition-colors cursor-none break-all tracking-[0.2em] uppercase font-light">mgmt@aatmanyodha.com</a>
+            <a href="mailto:mgmt@aatmanyodha.com" className="text-xs md:text-sm text-white/80 hover:text-brand-orange transition-colors break-all tracking-[0.2em] uppercase font-light">mgmt@aatmanyodha.com</a>
           </MagneticButton>
           <MagneticButton>
-            <a href="mailto:press@aatmanyodha.com" className="text-xs md:text-sm text-white/80 hover:text-brand-orange transition-colors cursor-none break-all tracking-[0.2em] uppercase font-light">press@aatmanyodha.com</a>
+            <a href="mailto:press@aatmanyodha.com" className="text-xs md:text-sm text-white/80 hover:text-brand-orange transition-colors break-all tracking-[0.2em] uppercase font-light">press@aatmanyodha.com</a>
           </MagneticButton>
         </div>
         
         <div className="col-span-1 md:col-span-3 flex flex-col gap-6 md:gap-10 lg:items-end mt-4 md:mt-0">
           <h4 className="font-cinzel text-xs md:text-sm uppercase tracking-[0.5em] text-white/20">Socials</h4>
           <div className="flex flex-col items-start lg:items-end gap-4 md:gap-6 text-xs md:text-sm text-white/80">
-            <MagneticButton><a href="#" className="hover:text-brand-orange transition-colors uppercase tracking-[0.3em] font-light cursor-none">Spotify</a></MagneticButton>
-            <MagneticButton><a href="#" className="hover:text-brand-orange transition-colors uppercase tracking-[0.3em] font-light cursor-none">Apple Music</a></MagneticButton>
-            <MagneticButton><a href="#" className="hover:text-brand-orange transition-colors uppercase tracking-[0.3em] font-light cursor-none">Instagram</a></MagneticButton>
-            <MagneticButton><a href="#" className="hover:text-brand-orange transition-colors uppercase tracking-[0.3em] font-light cursor-none">YouTube</a></MagneticButton>
+            <MagneticButton><a href="#" className="hover:text-brand-orange transition-colors uppercase tracking-[0.3em] font-light">Spotify</a></MagneticButton>
+            <MagneticButton><a href="#" className="hover:text-brand-orange transition-colors uppercase tracking-[0.3em] font-light">Apple Music</a></MagneticButton>
+            <MagneticButton><a href="#" className="hover:text-brand-orange transition-colors uppercase tracking-[0.3em] font-light">Instagram</a></MagneticButton>
+            <MagneticButton><a href="#" className="hover:text-brand-orange transition-colors uppercase tracking-[0.3em] font-light">YouTube</a></MagneticButton>
           </div>
         </div>
       </div>
