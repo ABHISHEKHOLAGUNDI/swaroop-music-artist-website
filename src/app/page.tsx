@@ -486,7 +486,8 @@ const StoryCause = () => {
     {
       subtitle: "The Genesis",
       title: "Shattered Canvas",
-      desc: "Every great masterpiece begins with destruction. 'Parts of Yourself' was born from the raw chaos of dismantling past identities to build an indestructible sonic foundation."
+      desc: "Every great masterpiece begins with destruction. 'Parts of Yourself' was born from the raw chaos of dismantling past identities to build an indestructible sonic foundation.",
+      link: "/genesis"
     },
     {
       subtitle: "The Cause",
@@ -509,30 +510,32 @@ const StoryCause = () => {
                <span className="font-cinzel text-[14vw] md:text-[10vw] uppercase leading-none whitespace-nowrap drop-shadow-[0_10px_20px_rgba(0,0,0,0.8)] block mr-4 md:mr-8 group-hover:drop-shadow-[0_0_30px_rgba(255,255,255,0.4)] transition-all duration-500 cursor-none">The</span>
                <span className="font-cinzel text-[14vw] md:text-[10vw] uppercase leading-none whitespace-nowrap encounter-text block cursor-none">Ethos</span>
             </div>
-                       {storyCards.map((card, i) => (
-               <div key={i} className="w-[85vw] md:w-[50vw] flex-shrink-0 aspect-[4/5] md:aspect-video relative group overflow-hidden border border-white/10 rounded-xl md:rounded-[2rem] shadow-[0_0_50px_rgba(0,0,0,0.9)] bg-[#050505] p-6 md:p-12 flex items-end">
-                  <div className="absolute inset-0 bg-brand-orange opacity-0 group-hover:opacity-10 transition-opacity duration-700 z-[10] mix-blend-screen pointer-events-none" />
-                  
-                  {/* Subtle Background Graphic */}
-                  <img src={`/assets/cinematic_concert.png`} className="absolute inset-0 w-full h-full object-cover grayscale opacity-[0.05] group-hover:opacity-[0.15] group-hover:scale-110 transition-all duration-1000 origin-center pointer-events-none" alt="" />
-                  
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent z-[10] pointer-events-none" />
-                  <div className="relative z-[20] w-full">
-                     <div className="flex flex-col md:flex-row md:justify-between md:items-end gap-6 md:gap-0">
-                       <div className="max-w-2xl transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-                         <p className="font-dmsans text-brand-orange text-[10px] md:text-sm uppercase tracking-[0.3em] font-bold mb-2 md:mb-4">{card.subtitle}</p>
-                         <h3 className="font-cinzel text-3xl md:text-6xl text-white mb-2 md:mb-6">{card.title}</h3>
-                         <p className="font-dmsans text-white/60 text-sm md:text-lg leading-[1.8] opacity-0 group-hover:opacity-100 transition-opacity duration-700 delay-100">{card.desc}</p>
-                       </div>
-                       <MagneticButton>
-                          <button className="hidden lg:flex flex-shrink-0 w-16 h-16 rounded-full border border-white/20 text-white items-center justify-center group-hover:bg-brand-orange group-hover:border-brand-orange group-hover:text-black transition-all duration-500 cursor-none drop-shadow-[0_0_15px_rgba(255,100,0,0)] group-hover:drop-shadow-[0_0_20px_rgba(255,100,0,0.8)] opacity-0 group-hover:opacity-100">
-                             <MoveRight className="w-6 h-6" />
-                          </button>
-                       </MagneticButton>
-                     </div>
-                  </div>
-               </div>
-            ))}
+                       {storyCards.map((card, i) => {
+                          const CardWrapper = card.link ? "a" : "div";
+                          return (
+                          <CardWrapper href={card.link || undefined} key={i} className="block w-[85vw] md:w-[50vw] flex-shrink-0 aspect-[4/5] md:aspect-video relative group overflow-hidden border border-white/10 rounded-xl md:rounded-[2rem] shadow-[0_0_50px_rgba(0,0,0,0.9)] bg-[#050505] p-6 md:p-12 flex items-end">
+                             <div className="absolute inset-0 bg-brand-orange opacity-0 group-hover:opacity-10 transition-opacity duration-700 z-[10] mix-blend-screen pointer-events-none" />
+                             
+                             {/* Subtle Background Graphic */}
+                             <img src={`/assets/cinematic_concert.png`} className="absolute inset-0 w-full h-full object-cover grayscale opacity-[0.05] group-hover:opacity-[0.15] group-hover:scale-110 transition-all duration-1000 origin-center pointer-events-none" alt="" />
+                             
+                             <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent z-[10] pointer-events-none" />
+                             <div className="relative z-[20] w-full">
+                                <div className="flex flex-col md:flex-row md:justify-between md:items-end gap-6 md:gap-0">
+                                  <div className="max-w-2xl transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                                    <p className="font-dmsans text-brand-orange text-[10px] md:text-sm uppercase tracking-[0.3em] font-bold mb-2 md:mb-4">{card.subtitle}</p>
+                                    <h3 className="font-cinzel text-3xl md:text-6xl text-white mb-2 md:mb-6">{card.title}</h3>
+                                    <p className="font-dmsans text-white/60 text-sm md:text-lg leading-[1.8] opacity-0 group-hover:opacity-100 transition-opacity duration-700 delay-100">{card.desc}</p>
+                                  </div>
+                                  <MagneticButton>
+                                     <button className="hidden lg:flex flex-shrink-0 w-16 h-16 rounded-full border border-white/20 text-white items-center justify-center group-hover:bg-brand-orange group-hover:border-brand-orange group-hover:text-black transition-all duration-500 cursor-none drop-shadow-[0_0_15px_rgba(255,100,0,0)] group-hover:drop-shadow-[0_0_20px_rgba(255,100,0,0.8)] opacity-0 group-hover:opacity-100 pointer-events-none">
+                                        <MoveRight className="w-6 h-6" />
+                                     </button>
+                                  </MagneticButton>
+                                </div>
+                             </div>
+                          </CardWrapper>
+                       )})}
          </motion.div>
       </div>
     </section>
